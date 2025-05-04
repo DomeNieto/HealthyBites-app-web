@@ -29,10 +29,13 @@ export const authApi = createApi({
       transformResponse: (response: AuthResponse): Auth => {
         const decodedToken = decodeJwt(response.accessToken);
         const role = decodedToken.role;
+        const email = decodedToken.sub;
 
+        console.log(role, email);
         return {
           token: response.accessToken,
           role: role,
+          email: email,
         };
       },
       async onQueryStarted(

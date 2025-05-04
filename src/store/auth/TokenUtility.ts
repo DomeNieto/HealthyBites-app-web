@@ -25,11 +25,27 @@ export const loadRolId = () => {
   return localStorage.getItem("authRol") || sessionStorage.getItem("authRol");
 };
 
+export const saveEmail = (email: string, keepSession: boolean) => {
+  if (keepSession) {
+    localStorage.setItem("authEmail", email);
+  } else {
+    sessionStorage.setItem("authEmail", email);
+  }
+};
+
+export const loadEmail = () => {
+  return (
+    localStorage.getItem("authEmail") || sessionStorage.getItem("authEmail")
+  );
+};
+
 export const clearTokenAndRol = () => {
   localStorage.removeItem("authToken");
   sessionStorage.removeItem("authToken");
   localStorage.removeItem("authRol");
   sessionStorage.removeItem("authRol");
+  localStorage.removeItem("authEmail");
+  sessionStorage.removeItem("authEmail");
 };
 
 export const decodeJwt = (token: string) => {

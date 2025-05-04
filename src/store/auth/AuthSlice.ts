@@ -12,11 +12,14 @@ const loadInitState = (): AuthState => {
     localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
   const rolId =
     localStorage.getItem("authRol") || sessionStorage.getItem("authRol");
+  const email =
+    localStorage.getItem("authEmail") || sessionStorage.getItem("authEmail");
   if (!token || !rolId) {
     return {
       auth: {
         token: null,
         role: null,
+        email: null,
       },
       loading: false,
       error: null,
@@ -27,6 +30,7 @@ const loadInitState = (): AuthState => {
     auth: {
       token: token,
       role: rolId,
+      email: email,
     },
     loading: false,
     error: null,
@@ -44,6 +48,7 @@ export const authSlice = createSlice({
       state.auth = {
         token: null,
         role: null,
+        email: null,
       };
       state.auth = initialState.auth;
     },

@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useLoginMutation } from "../../store/auth/AuthApi";
-import { saveRol, saveToken } from "../../store/auth/TokenUtility";
+import { saveEmail, saveRol, saveToken } from "../../store/auth/TokenUtility";
 import CustomSnackbar from "../snackbar/CustomSnackbar";
 
 const LoginForm = () => {
@@ -41,9 +41,10 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const data = await login(user).unwrap();
-      if (data.token && data.role) {
+      if (data.token && data.role && data.email) {
         saveToken(data.token, keepSession);
         saveRol(data.role, keepSession);
+        saveEmail(data.email, keepSession);
         setSnackbar({
           open: true,
           message: "Inicio de sesión exitoso.",
