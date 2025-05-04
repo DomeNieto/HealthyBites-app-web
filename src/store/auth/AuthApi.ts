@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
+    baseUrl: `${API_URL}api/auth/`,
     prepareHeaders: (headers) => {
       headers.set("content-type", `application/json`);
       headers.set("Access-Control-Allow-Origin", "*");
@@ -42,6 +42,7 @@ export const authApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setCredentials(data));
+          console.log(data);
         } catch (error) {
           dispatch(setCredentials(initialState.auth));
           console.log("Error al inciar sesión. POST LOGIN ", error);
