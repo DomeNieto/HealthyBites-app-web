@@ -18,7 +18,16 @@ function App() {
             minHeight: "100vh",
           }}
         >
-          <Router />
+          <Box
+            sx={{
+              flexGrow: 1, // Ocupa el espacio vertical disponible
+              display: "flex", // Necesario para que height: 100% funcione en hijos
+              flexDirection: "column", // Apila el contenido del router verticalmente
+            }}
+          >
+            <Router /> {/* AdminGuard será renderizado aquí dentro */}
+          </Box>
+
           <Footer />
         </Box>
       </ThemeProvider>
