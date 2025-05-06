@@ -36,7 +36,7 @@ const Navbar = () => {
       <Toolbar disableGutters>
         <img src={logoSrc} alt="Logo Gimnasio" style={logoStyle} />
 
-        <Button sx={navButtonStyle} onClick={() => handleNavigation("/users")}>
+        <Button sx={navButtonStyle} onClick={() => handleNavigation("/home")}>
           Gestor
         </Button>
 
