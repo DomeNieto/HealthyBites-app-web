@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { Box } from "@mui/material";
 import Navbar from "../layout/Navbar";
+import Header from "../layout/Header";
 
 interface AdminGuardProps {
   children: JSX.Element | JSX.Element[];
@@ -24,6 +25,7 @@ const AdminGuard = ({ children }: AdminGuardProps) => {
   return (
     <Box sx={mainGuardLayoutStyle}>
       <Navbar />
+      <Header />
       <Box sx={contentWrapperStyle}>{children}</Box>
     </Box>
   );
