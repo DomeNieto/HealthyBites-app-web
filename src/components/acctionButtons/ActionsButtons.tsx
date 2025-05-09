@@ -14,7 +14,12 @@ const ActionButtons = ({
   const renderButtonShowDetails = () =>
     handleShowDetails && (
       <Tooltip title="Ver detalles">
-        <Button variant="contained" color="primary" onClick={handleShowDetails}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleShowDetails}
+          sx={{ textTransform: "none" }}
+        >
           Ver detalles
         </Button>
       </Tooltip>
@@ -23,7 +28,12 @@ const ActionButtons = ({
   const renderButtonDelete = () =>
     handleDelete && (
       <Tooltip title="Eliminar">
-        <Button variant="contained" color="error" onClick={handleDelete}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleDelete}
+          sx={{ textTransform: "none" }}
+        >
           Eliminar
         </Button>
       </Tooltip>
@@ -32,7 +42,12 @@ const ActionButtons = ({
   const renderButtonUpdate = () =>
     handleUpdate && (
       <Tooltip title="Actualizar">
-        <Button variant="contained" color="secondary" onClick={handleUpdate}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleUpdate}
+          sx={{ textTransform: "none" }}
+        >
           Editar
         </Button>
       </Tooltip>
