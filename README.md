@@ -29,7 +29,7 @@ Before you start, make sure you have the following tools installed:
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your_user/HealthyBites-app-web.git
+[git clone https://github.com/DomeNieto/HealthyBites-app-web.git](https://github.com/DomeNieto/HealthyBites-app-web.git)
 cd HealthyBites-app-web
 ```
 
