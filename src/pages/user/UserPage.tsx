@@ -40,7 +40,7 @@ const UserPage = () => {
 
   return (
     <Container>
-      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={2} sx={{ mb: 5 }}>
         <FilterSearch field="Nombre" />
         <FilterDate field="Fecha de alta" />
         <FilterNumber field="IMC" />

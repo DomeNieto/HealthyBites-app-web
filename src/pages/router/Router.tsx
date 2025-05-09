@@ -6,6 +6,7 @@ import AdminGuard from "../../components/autoGuard/AutoGuard";
 import HomePage from "../home/HomePage";
 import UserPage from "../user/UserPage";
 import UserDetailsPage from "../userDetails/UserDetailsPage";
+import IngredientPage from "../ingredient/IngredientPage";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const Router = () => {
     {
       path: "/users/:userId",
       element: <AdminGuard children={<UserDetailsPage />} />,
+    },
+    {
+      path: "/ingredients",
+      element: <AdminGuard children={<IngredientPage />} />,
     },
     {
       path: "/unauthorized",
