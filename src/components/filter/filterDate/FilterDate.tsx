@@ -7,19 +7,19 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { changeSearchText } from "../../../store/utilities/UtitlitySlice";
+import { changeSearchDate } from "../../../store/utilities/UtitlitySlice";
 
-interface FilterSearchProps {
+interface FilterDateProps {
   field?: string;
 }
 
-const FilterSearch = ({ field }: FilterSearchProps) => {
+const FilterDate = ({ field }: FilterDateProps) => {
   const dispatch = useDispatch();
 
-  const search = useSelector((state: RootState) => state.utility.searchText);
+  const search = useSelector((state: RootState) => state.utility.searchDate);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeSearchText(e.target.value as string));
+    dispatch(changeSearchDate(e.target.value as string));
   };
 
   return (
@@ -35,8 +35,8 @@ const FilterSearch = ({ field }: FilterSearchProps) => {
         {field}
       </InputLabel>
       <TextField
+        type="date"
         variant="outlined"
-        placeholder={field}
         value={search}
         onChange={handleOnChange}
         slotProps={textFieldProps}
@@ -56,4 +56,4 @@ const textFieldProps = {
   },
 };
 
-export default FilterSearch;
+export default FilterDate;
