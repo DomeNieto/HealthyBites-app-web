@@ -28,10 +28,14 @@ const Header = () => {
   ];
 
   const getTitle = () => {
-    const title = titles.filter((title) =>
+    if (/^\/users\/[^/]+$/.test(location.pathname)) {
+      return "";
+    }
+
+    const title = titles.find((title) =>
       location.pathname.startsWith(title.link)
     );
-    return title.length != 0 ? title[0].name : "";
+    return title ? title.name : "";
   };
 
   return (
