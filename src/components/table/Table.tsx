@@ -99,6 +99,7 @@ export default function GenericStickyTable<T>({
                       hover
                       tabIndex={-1}
                       key={String(row[rowKey]) || `row-${rowIndex}`}
+                      sx={{ height: 32 }}
                     >
                       {tableColumns.map((column) => {
                         if (column.id === "actions") {
@@ -106,9 +107,10 @@ export default function GenericStickyTable<T>({
                             <TableCell
                               key={`actions-cell-${String(row[rowKey])}`}
                               align="center"
-                              style={{
+                              sx={{
                                 backgroundColor: "#ECDBF7",
                                 border: "0.5px  solid rgba(230, 166, 251, 0.3)",
+                                py: 1,
                               }}
                             >
                               {actions && actions(row)}
@@ -122,9 +124,10 @@ export default function GenericStickyTable<T>({
                           <TableCell
                             key={`${String(column.id)}-${String(row[rowKey])}`}
                             align="center"
-                            style={{
+                            sx={{
                               backgroundColor: "#ECDBF7",
                               border: "0.5px solid rgba(230, 166, 251, 0.3)",
+                              py: 1,
                             }}
                           >
                             {column.format
