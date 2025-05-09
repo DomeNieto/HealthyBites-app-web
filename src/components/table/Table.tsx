@@ -71,7 +71,11 @@ export default function GenericStickyTable<T>({
               {tableColumns.map((column) => (
                 <TableCell
                   key={String(column.id)}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    backgroundColor: "rgba(237, 220, 255, 0.3)",
+                    border: "1px solid rgba(230, 166, 251, 0.3)",
+                  }}
                   align="center"
                 >
                   {column.label}
@@ -102,6 +106,10 @@ export default function GenericStickyTable<T>({
                             <TableCell
                               key={`actions-cell-${String(row[rowKey])}`}
                               align="center"
+                              style={{
+                                backgroundColor: "#ECDBF7",
+                                border: "0.5px  solid rgba(230, 166, 251, 0.3)",
+                              }}
                             >
                               {actions && actions(row)}
                             </TableCell>
@@ -114,6 +122,10 @@ export default function GenericStickyTable<T>({
                           <TableCell
                             key={`${String(column.id)}-${String(row[rowKey])}`}
                             align="center"
+                            style={{
+                              backgroundColor: "#ECDBF7",
+                              border: "0.5px solid rgba(230, 166, 251, 0.3)",
+                            }}
                           >
                             {column.format
                               ? column.format(value, row)
@@ -142,6 +154,9 @@ export default function GenericStickyTable<T>({
         labelDisplayedRows={({ from, to, count }) =>
           `${from}-${to} de ${count}`
         }
+        style={{
+          border: "0.5px  solid rgba(230, 166, 251, 0.3)",
+        }}
       />
     </Paper>
   );
