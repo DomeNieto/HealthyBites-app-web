@@ -31,7 +31,10 @@ const FilterDate = ({ field }: FilterDateProps) => {
         alignItems: "flex-start",
       }}
     >
-      <InputLabel htmlFor="label" sx={{ textAlign: "left", width: "100%" }}>
+      <InputLabel
+        htmlFor="label"
+        sx={{ textAlign: "left", width: "100%", fontSize: 14 }}
+      >
         {field}
       </InputLabel>
       <TextField
@@ -41,6 +44,16 @@ const FilterDate = ({ field }: FilterDateProps) => {
         onChange={handleOnChange}
         slotProps={textFieldProps}
         fullWidth
+        sx={{
+          height: 36,
+          "& .MuiInputBase-root": {
+            height: 46,
+            fontSize: "0.8rem",
+          },
+          "& input::placeholder": {
+            fontSize: 14,
+          },
+        }}
       />
     </Container>
   );

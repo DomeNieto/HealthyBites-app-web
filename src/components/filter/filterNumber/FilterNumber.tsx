@@ -19,13 +19,17 @@ const FilterNumber = ({ field }: FilterNumberProps) => {
   return (
     <Container
       maxWidth="sm"
+      disableGutters
       sx={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
+        alignItems: "center",
       }}
     >
-      <InputLabel htmlFor="label" sx={{ textAlign: "left", width: "100%" }}>
+      <InputLabel
+        htmlFor="label"
+        sx={{ textAlign: "left", width: "100%", fontSize: 14 }}
+      >
         {field}
       </InputLabel>
       <TextField
@@ -34,8 +38,17 @@ const FilterNumber = ({ field }: FilterNumberProps) => {
         placeholder={"0.0"}
         value={search}
         onChange={handleOnChange}
-        /*      slotProps={textFieldProps} */
         fullWidth
+        sx={{
+          height: 36,
+          "& .MuiInputBase-root": {
+            height: 46,
+            fontSize: "0.8rem",
+          },
+          "& input::placeholder": {
+            fontSize: 14,
+          },
+        }}
       />
     </Container>
   );
