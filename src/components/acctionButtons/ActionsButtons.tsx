@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Stack, Tooltip } from "@mui/material";
+import { Button, Stack, Tooltip } from "@mui/material";
 
 interface ActionButtonProps {
   handleShowDetails?: () => void;
@@ -54,11 +54,11 @@ const ActionButtons = ({
     );
 
   const renderActionsButtons = () => (
-    <ButtonGroup>
+    <Stack direction="row" spacing={1}>
       {renderButtonShowDetails()}
       {renderButtonUpdate()}
       {renderButtonDelete()}
-    </ButtonGroup>
+    </Stack>
   );
 
   return (
