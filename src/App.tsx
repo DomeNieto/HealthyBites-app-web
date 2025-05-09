@@ -5,7 +5,6 @@ import { store } from "./store/store";
 import Router from "./pages/router/Router";
 import { Box, ThemeProvider } from "@mui/material";
 import theme from "./themes/CustomTheme";
-import Footer from "./components/layout/Footer";
 
 function App() {
   return (
@@ -20,15 +19,13 @@ function App() {
         >
           <Box
             sx={{
-              flexGrow: 1, // Ocupa el espacio vertical disponible
-              display: "flex", // Necesario para que height: 100% funcione en hijos
-              flexDirection: "column", // Apila el contenido del router verticalmente
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Router /> {/* AdminGuard será renderizado aquí dentro */}
+            <Router />
           </Box>
-
-          <Footer />
         </Box>
       </ThemeProvider>
     </Provider>
