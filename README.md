@@ -1,54 +1,62 @@
-# React + TypeScript + Vite
+# HealthyBites - Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+**HealthyBites** is a web application focused on managing healthy eating. This application uses **React** with **Material UI** for the frontend and **Spring Boot** with **MySQL** for the backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository corresponds to the frontend part of the **HealthyBites** web application.
 
-## Expanding the ESLint configuration
+The links to the other repositories are as follows:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Backend](https://github.com/DomeNieto/HealthyBites-api.git)
+- [Mobile Frontend](https://github.com/DomeNieto/HealthyBites-app-movil.git)
+  
+Below, you will find the details on how to install and run the web application.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Prerequisites
+
+Before you start, make sure you have the following tools installed:
+
+- **Node.js** (v18.x or higher)
+- **MySQL** (v5.x or higher)
+- **Java 17**
+- **Maven**
+
+## Installation
+
+### 1. Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/your_user/HealthyBites-app-web.git
+cd HealthyBites-app-web
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Install Frontend Dependencies
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Once the repository is cloned, navigate to the frontend project folder and run the following command to install all the Node.js dependencies:
+
+```bash
+npm install
 ```
+
+This will install all the necessary dependencies for the frontend of the application, including React, Material UI, and other libraries needed for its functionality.
+
+---
+
+## 3. Running the Application
+
+1. **Start the Frontend**
+   To start the application in the development environment, navigate to the frontend folder and run:
+
+   ```bash
+   npm run dev
+   ```
+
+   This will start the development server at http://localhost:5173.
+
+2. **Verification**
+   Once both servers are running, open your browser and go to http://localhost:5173. You should see the **HealthyBites** interface and be able to interact with the application.
