@@ -7,6 +7,7 @@ import HomePage from "../home/HomePage";
 import UserPage from "../user/UserPage";
 import UserDetailsPage from "../userDetails/UserDetailsPage";
 import IngredientPage from "../ingredient/IngredientPage";
+import AdvicePage from "../advice/AdvicePage";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const Router = () => {
     {
       path: "/ingredients",
       element: <AdminGuard children={<IngredientPage />} />,
+    },
+    {
+      path: "/advices",
+      element: <AdminGuard children={<AdvicePage />} />,
     },
     {
       path: "/unauthorized",
