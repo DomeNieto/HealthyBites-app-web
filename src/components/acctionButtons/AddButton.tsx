@@ -15,7 +15,7 @@ const AddButton = ({ onClick, text }: AddButtonProps) => {
       startIcon={<AddIcon />}
       sx={{
         textTransform: "none",
-        width: "750px",
+        width: "320px",
         height: "46px",
       }}
     >

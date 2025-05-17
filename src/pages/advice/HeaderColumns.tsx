@@ -1,17 +1,17 @@
 import { FormFieldConfig } from "../../interfaces/ModalForm";
 import { formatDate } from "../user/HeaderColumns";
 
-export const dataHeaderIngredients = () => {
+export const dataHeaderAdvice = () => {
   return [
     {
-      id: "name",
-      label: "Ingrediente",
+      id: "title",
+      label: "Título",
       minWidth: 150,
     },
     {
-      id: "quantityCalories",
-      label: "Calorias",
-      minWidth: 100,
+      id: "description",
+      label: "Descripción",
+      minWidth: 170,
     },
     {
       id: "creationDate",
@@ -22,17 +22,17 @@ export const dataHeaderIngredients = () => {
   ];
 };
 
-export const ingredientFieldsConfig: FormFieldConfig[] = [
+export const adviceFieldsConfig: FormFieldConfig[] = [
   {
-    name: "name",
-    label: "Nombre del Ingrediente",
+    name: "title",
+    label: "Título",
     type: "text",
     required: true,
   },
   {
-    name: "calories",
-    label: "Calorías",
-    type: "number",
+    name: "description",
+    label: "Descripción",
+    type: "textarea",
     required: true,
   },
 ];

@@ -1,4 +1,4 @@
-import { Container, Stack } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import GenericStickyTable from "../../components/table/Table";
 import ActionButtons from "../../components/acctionButtons/ActionsButtons";
 import SpinnerIsLoading from "../../components/loading/SpinnerLoading";
@@ -73,7 +73,7 @@ const IngredientPage = () => {
   ) => {
     try {
       const payload = {
-        name: formData.name as string,
+        name: formData.name.toString(),
         quantityCalories: Number(formData.calories),
         creationDate: new Date().toISOString(),
       };
@@ -124,11 +124,24 @@ const IngredientPage = () => {
 
   return (
     <Container>
-      <Stack direction="row" spacing={2} sx={{ mb: 5, alignItems: "flex-end" }}>
-        <FilterSearch field="Nombre Ingrediente" />
-        <FilterNumber field="Calorias" />
-        <AddButton text="Crear Ingrediente" onClick={handleOpenCreateModal} />
-      </Stack>
+      <Grid container spacing={2} alignItems="flex-end" sx={{ mb: 5 }}>
+        <Grid size={8}>
+          <Stack direction="row" spacing={2}>
+            <FilterSearch field="Nombre Ingrediente" />
+            <FilterNumber field="Calorias" />
+          </Stack>
+        </Grid>
+        <Grid
+          size={4}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
+          }}
+        >
+          <AddButton text="Crear Ingrediente" onClick={handleOpenCreateModal} />
+        </Grid>
+      </Grid>
 
       <GenericStickyTable<Ingredient>
         columns={dataHeaderIngredients()}

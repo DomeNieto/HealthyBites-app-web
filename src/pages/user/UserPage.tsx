@@ -22,7 +22,8 @@ const UserPage = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(setUsers(data));
+      const filteredData = data.filter((user) => user.id !== 1);
+      dispatch(setUsers(filteredData));
     }
   }, [data, dispatch]);
 

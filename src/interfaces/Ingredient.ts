@@ -8,5 +8,5 @@ export interface Ingredient {
 export interface IngredientFormData {
   name: string;
   quantityCalories: number;
-  reationDate: string;
+  creationDate: string;
 }

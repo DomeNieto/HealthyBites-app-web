@@ -8,11 +8,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { ReactNode, useMemo, useState } from "react";
 
-const ALLOWED_ROWS_PER_PAGE = [5] as const;
-type RowsPerPageOption = (typeof ALLOWED_ROWS_PER_PAGE)[number];
-
 export interface ColumnDefinition<T> {
-  id: keyof T | "actions" | string;
+  id: "actions" | string;
   label: string;
   minWidth?: number;
   format?: (value: T[keyof T], row: T) => React.ReactNode;
@@ -34,20 +31,9 @@ export default function GenericStickyTable<T>({
   maxHeight = 440,
 }: GenericStickyTableProps<T>) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState<RowsPerPageOption>(5);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = Number(event.target.value);
-    if ((ALLOWED_ROWS_PER_PAGE as readonly number[]).includes(value)) {
-      setRowsPerPage(value as RowsPerPageOption);
-      setPage(0);
-    }
   };
 
   const tableColumns = useMemo(() => {
@@ -91,68 +77,62 @@ export default function GenericStickyTable<T>({
                 </TableCell>
               </TableRow>
             ) : (
-              data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, rowIndex) => {
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={String(row[rowKey]) || `row-${rowIndex}`}
-                      sx={{ height: 32 }}
-                    >
-                      {tableColumns.map((column) => {
-                        if (column.id === "actions") {
-                          return (
-                            <TableCell
-                              key={`actions-cell-${String(row[rowKey])}`}
-                              align="center"
-                              sx={{
-                                backgroundColor: "#ECDBF7",
-                                border: "0.5px  solid rgba(230, 166, 251, 0.3)",
-                                py: 1,
-                              }}
-                            >
-                              {actions && actions(row)}
-                            </TableCell>
-                          );
-                        }
-
-                        const value = row[column.id as keyof T];
-
+              data.slice(page * 5, page * 5 + 5).map((row) => {
+                return (
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={String(row[rowKey])}
+                    sx={{ height: 32 }}
+                  >
+                    {tableColumns.map((column) => {
+                      if (column.id === "actions") {
                         return (
                           <TableCell
-                            key={`${String(column.id)}-${String(row[rowKey])}`}
+                            key={`actions-cell-${String(row[rowKey])}`}
                             align="center"
                             sx={{
                               backgroundColor: "#ECDBF7",
-                              border: "0.5px solid rgba(230, 166, 251, 0.3)",
+                              border: "0.5px  solid rgba(230, 166, 251, 0.3)",
                               py: 1,
                             }}
                           >
-                            {column.format
-                              ? column.format(value, row)
-                              : (value as React.ReactNode)}
+                            {actions && actions(row)}
                           </TableCell>
                         );
-                      })}
-                    </TableRow>
-                  );
-                })
+                      }
+
+                      const value = row[column.id as keyof T];
+
+                      return (
+                        <TableCell
+                          key={`${String(column.id)}-${String(row[rowKey])}`}
+                          align="center"
+                          sx={{
+                            backgroundColor: "#ECDBF7",
+                            border: "0.5px solid rgba(230, 166, 251, 0.3)",
+                            py: 1,
+                          }}
+                        >
+                          {column.format
+                            ? column.format(value, row)
+                            : (value as React.ReactNode)}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })
             )}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={ALLOWED_ROWS_PER_PAGE.filter(
-          (option) => option === 5 || option > 0
-        )}
         component="div"
         count={data.length}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={5}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage="Filas por página:"
         labelDisplayedRows={({ from, to, count }) =>
           `${from}-${to} de ${count}`
