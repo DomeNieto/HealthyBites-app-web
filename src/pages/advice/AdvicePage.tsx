@@ -23,6 +23,7 @@ import {
   setCurrentAdvice,
 } from "../../store/advice/AdviceSlice";
 import { useEffect, useState } from "react";
+import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 
 const AdvicePage = () => {
   const { data, isLoading } = useGetAllAdvicesQuery();
@@ -35,6 +36,11 @@ const AdvicePage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "info" as "success" | "error" | "info" | "warning",
+  });
 
   const { currentAdvice } = useSelector((state: RootState) => state.advices);
 
@@ -76,13 +82,21 @@ const AdvicePage = () => {
       };
       if (modalMode === "create") {
         await createAdvice(payload).unwrap();
-        // snacknbar
+        setSnackbar({
+          open: true,
+          message: "ingrediente creado correctamente.",
+          severity: "success",
+        });
       } else if (modalMode === "edit" && currentAdvice?.id) {
         await updateAdvice({
           ...payload,
           id: currentAdvice.id,
         }).unwrap();
-        // snacknbar
+        setSnackbar({
+          open: true,
+          message: "Ingrediente actualizado correctamente.",
+          severity: "success",
+        });
       }
       handleCloseModal();
     } catch (error) {
@@ -94,8 +108,19 @@ const AdvicePage = () => {
     if (window.confirm(`¿Estás seguro de que quieres eliminar ${row.title}?`)) {
       try {
         await deleteAdvice(row.id.toString()).unwrap();
+        setSnackbar({
+          open: true,
+          message: "Consejo nutricional eliminado correctamente.",
+          severity: "success",
+        });
       } catch (error) {
         console.error("Error eliminando ingrediente:", error);
+        setSnackbar({
+          open: true,
+          message:
+            "Error al eliminar el consejo nutricional. Inténtalo de nuevo.",
+          severity: "error",
+        });
       }
     }
   };
@@ -163,6 +188,12 @@ const AdvicePage = () => {
           isLoading={isCreating || isUpdating}
         />
       )}
+      <CustomSnackbar
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
     </Container>
   );
 };

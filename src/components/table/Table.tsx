@@ -109,7 +109,7 @@ export default function GenericStickyTable<T>({
                           key={`${String(column.id)}-${String(row[rowKey])}`}
                           align="center"
                           sx={{
-                            backgroundColor: "#ECDBF7",
+                            backgroundColor: "secondary.main",
                             border: "0.5px solid rgba(230, 166, 251, 0.3)",
                             py: 1,
                           }}

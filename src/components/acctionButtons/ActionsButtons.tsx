@@ -44,7 +44,7 @@ const ActionButtons = ({
       <Tooltip title="Actualizar">
         <Button
           variant="contained"
-          color="secondary"
+          color="tertiary"
           onClick={handleUpdate}
           sx={{ textTransform: "none" }}
         >

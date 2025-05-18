@@ -23,6 +23,7 @@ import { dataHeaderIngredients, ingredientFieldsConfig } from "./HeaderColumns";
 import { AppDispatch, RootState } from "../../store/store";
 import FormModal from "../../components/modal/FormModal";
 import AddButton from "../../components/acctionButtons/AddButton";
+import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 
 const IngredientPage = () => {
   const { data, isLoading } = useGetAllIngredientsQuery();
@@ -37,6 +38,11 @@ const IngredientPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "info" as "success" | "error" | "info" | "warning",
+  });
 
   const [createIngredient, { isLoading: isCreating }] =
     useCreateIngredientMutation();
@@ -79,17 +85,30 @@ const IngredientPage = () => {
       };
       if (modalMode === "create") {
         await createIngredient(payload).unwrap();
-        // snacknbar
+        setSnackbar({
+          open: true,
+          message: "Ingrediente creado correctamente",
+          severity: "success",
+        });
       } else if (modalMode === "edit" && currentIngredient?.id) {
         await updateIngredient({
           ...payload,
           id: currentIngredient.id,
         }).unwrap();
-        // snacknbar
+        setSnackbar({
+          open: true,
+          message: "Ingrediente actualizado correctamente",
+          severity: "success",
+        });
       }
       handleCloseModal();
     } catch (error) {
       console.error("Error guardando ingrediente:", error);
+      setSnackbar({
+        open: true,
+        message: "Error guardando el ingrediente",
+        severity: "success",
+      });
     }
   };
 
@@ -97,8 +116,18 @@ const IngredientPage = () => {
     if (window.confirm(`¿Estás seguro de que quieres eliminar ${row.name}?`)) {
       try {
         await deleteIngredient(row.id.toString()).unwrap();
+        setSnackbar({
+          open: true,
+          message: "Ingrediente eliminado correctamente",
+          severity: "success",
+        });
       } catch (error) {
         console.error("Error eliminando ingrediente:", error);
+        setSnackbar({
+          open: true,
+          message: "Error al eliminar el ingrediente. Inténtalo de nuevo.",
+          severity: "error",
+        });
       }
     }
   };
@@ -166,6 +195,12 @@ const IngredientPage = () => {
           isLoading={isCreating || isUpdating}
         />
       )}
+      <CustomSnackbar
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
     </Container>
   );
 };

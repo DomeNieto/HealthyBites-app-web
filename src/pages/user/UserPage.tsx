@@ -20,6 +20,7 @@ const UserPage = () => {
 
   const users = useSelector(selectFilteredUsers);
 
+  console.log(users);
   useEffect(() => {
     if (data) {
       const filteredData = data.filter((user) => user.id !== 1);
@@ -42,7 +43,7 @@ const UserPage = () => {
   return (
     <Container>
       <Stack direction="row" spacing={2} sx={{ mb: 5 }}>
-        <FilterSearch field="Nombre" />
+        <FilterSearch field="Nombre o Sexo" />
         <FilterDate field="Fecha de alta" />
         <FilterNumber field="IMC" />
       </Stack>

@@ -2,6 +2,8 @@ export interface InfoUser {
   id: number;
   height: number;
   weight: number;
+  sex: string;
+  age: number;
   activityLevel: string;
 }
 
