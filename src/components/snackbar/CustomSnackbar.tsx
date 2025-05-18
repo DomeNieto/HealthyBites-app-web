@@ -1,25 +1,22 @@
 import { Alert, AlertColor, Snackbar } from "@mui/material";
-import React from "react";
 
 interface CustomSnackbarProps {
   open: boolean;
   onClose: () => void;
   message: string;
   severity?: AlertColor;
-  duration?: number;
 }
 
-const CustomSnackbar: React.FC<CustomSnackbarProps> = ({
+const CustomSnackbar = ({
   open,
   onClose,
   message,
-  severity = "info",
-  duration = 4000,
-}) => {
+  severity,
+}: CustomSnackbarProps) => {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={duration}
+      autoHideDuration={4000}
       onClose={onClose}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
     >

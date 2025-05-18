@@ -1,7 +1,6 @@
 import { Typography, Button, Box } from "@mui/material";
 import { useGetUserByIdQuery } from "../../store/users/UserApi";
 import { useNavigate, useParams } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SpinnerIsLoading from "../../components/loading/SpinnerLoading";
 import { calculateImc } from "../user/HeaderColumns";
@@ -13,50 +12,20 @@ const UserDetailsPage = () => {
 
   const navigate = useNavigate();
 
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useGetUserByIdQuery(_id!, {
+  const { data: user, isLoading } = useGetUserByIdQuery(_id!, {
     skip: !_id,
   });
 
-  console.log(user);
-
-  if (!_id) {
-    return (
-      <Box sx={{ padding: "20px", textAlign: "center", mt: 4 }}>
-        <Typography variant="h6" color="error">
-          ID de usuario no proporcionado en la URL.
-        </Typography>
-        <Button
-          variant="outlined"
-          onClick={() => navigate(-1)}
-          startIcon={<ArrowBackIcon />}
-          sx={{ mt: 2, color: "#9c27b0", borderColor: "#9c27b0" }}
-        >
-          Volver
-        </Button>
-      </Box>
-    );
-  }
+  const handleViewRecipes = () => {
+    navigate(`/recipes/user/${_id}`);
+  };
 
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
 
-  if (isError) {
-    return (
-      <Box sx={{ padding: "20px", textAlign: "center", mt: 4 }}>
-        <Typography color="error" variant="h6">
-          Error al cargar los datos del usuario.
-        </Typography>
-        <BackButton />
-      </Box>
-    );
-  }
-
   if (!user) {
+    // USAR HANDEL
     return (
       <Box sx={{ padding: "20px", textAlign: "center", mt: 4 }}>
         <Typography variant="h6">Usuario no encontrado.</Typography>
@@ -68,27 +37,24 @@ const UserDetailsPage = () => {
   return (
     <Box
       sx={{
-        p: { xs: 2, md: 4 },
+        p: { xs: 1, md: 2 },
         display: "flex",
         flexDirection: "column",
-        /*   minHeight: "calc(100vh - 64px)", */
-        height: "100%",
-        boxSizing: "border-box",
+        height: "80%",
       }}
     >
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          alignItems: { xs: "center", md: "flex-start" },
+
           justifyContent: "center",
           gap: { xs: 3, md: 5 },
-          py: { xs: 3, md: 5 },
         }}
       >
-        <Box sx={{ textAlign: "center" }}>
+        <Box sx={{ textAlign: "center", alignSelf: "center" }}>
           <AccountCircleIcon
-            sx={{ fontSize: { xs: 150, md: 200 }, color: "black" }}
+            sx={{ fontSize: { xs: 100, md: 300 }, color: "black" }}
           />
         </Box>
 
@@ -102,6 +68,14 @@ const UserDetailsPage = () => {
             {user.name || "Nombre no disponible"}
           </Typography>
           <Typography variant="h6" sx={{ mb: 1.5 }}>
+            <strong>Edad:</strong>{" "}
+            {user.infoUser.age ? `${user.infoUser.age} años` : "N/A"}
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 1.5 }}>
+            <strong>Sexo:</strong>{" "}
+            {user.infoUser.sex === "F" ? "Femenino" : "Másculino"}
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 1.5 }}>
             <strong>Altura:</strong>{" "}
             {user.infoUser.height
               ? `${user.infoUser.height.toString().replace(".", ",")}m`
@@ -111,6 +85,7 @@ const UserDetailsPage = () => {
             <strong>Peso:</strong>{" "}
             {user.infoUser.weight ? `${user.infoUser.weight} Kg` : "N/A"}
           </Typography>
+
           <Typography variant="h6" sx={{ mb: 1.5 }}>
             <strong>Nivel de Actividad Física:</strong>{" "}
             {user.infoUser.activityLevel || "N/A"}
@@ -121,9 +96,7 @@ const UserDetailsPage = () => {
 
           <Button
             variant="contained"
-            onClick={() => {
-              console.log("Ver Recetas para usuario:", _id);
-            }}
+            onClick={() => handleViewRecipes()}
             sx={{
               textTransform: "none",
             }}
@@ -133,7 +106,7 @@ const UserDetailsPage = () => {
         </Box>
       </Box>
 
-      <Box sx={{ mt: "50px", alignSelf: "flex-start" }}>
+      <Box sx={{ mt: "50px", ml: "15px", alignSelf: "flex-start" }}>
         <BackButton />
       </Box>
     </Box>

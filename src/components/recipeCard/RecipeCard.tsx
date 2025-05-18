@@ -1,7 +1,11 @@
 import { Card, CardContent, Typography, List, ListItem } from "@mui/material";
 import { Recipe } from "../../interfaces/Recipe";
 
-const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
+interface RecipeCardProps {
+  recipe: Recipe;
+}
+
+const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
     <Card
       sx={{
@@ -11,7 +15,6 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     >
       <CardContent
         sx={{
-          width: "100%",
           justifyItems: "flex-start",
         }}
       >
@@ -21,9 +24,17 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
         <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
           Ingredientes:
         </Typography>
-        <List dense sx={{ p: 0 }}>
+        <List
+          dense
+          sx={{
+            p: 0,
+            maxHeight: "21px",
+            overflowY: "auto",
+            width: "100%",
+          }}
+        >
           {recipe.ingredients.map((ingredient) => (
-            <ListItem key={ingredient.id} sx={{ fontSize: "13px", m: 0 }}>
+            <ListItem key={ingredient.id} sx={{ fontSize: "13px", p: 0 }}>
               {ingredient.name} ({ingredient.quantityCalories} cal)
             </ListItem>
           ))}
@@ -31,7 +42,18 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
         <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
           Preparación:
         </Typography>
-        <Typography variant="subtitle2">{recipe.preparation}</Typography>
+        <Typography
+          sx={{
+            maxHeight: "40px",
+            overflowY: "auto",
+            width: "100%",
+            overflowX: "hidden",
+            fontSize: "13px",
+            textAlign: "left",
+          }}
+        >
+          {recipe.preparation}
+        </Typography>
       </CardContent>
     </Card>
   );
