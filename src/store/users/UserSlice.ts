@@ -13,6 +13,8 @@ const initialCurrentInfoUserState: InfoUser = {
   id: 0,
   height: 0,
   weight: 0,
+  sex: "",
+  age: 0,
   activityLevel: "",
 };
 
@@ -66,7 +68,8 @@ export const selectFilteredUsers = createSelector(
 
     return users.filter((user: User) => {
       const nameMatch = text
-        ? (user.name?.toLowerCase() || "").includes(text)
+        ? user.name?.toLowerCase().includes(text) ||
+          user.infoUser.sex?.toLowerCase().includes(text)
         : true;
 
       const dateMatch = date

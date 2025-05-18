@@ -8,6 +8,7 @@ import UserPage from "../user/UserPage";
 import UserDetailsPage from "../userDetails/UserDetailsPage";
 import IngredientPage from "../ingredient/IngredientPage";
 import AdvicePage from "../advice/AdvicePage";
+import UserRecipesPage from "../userRecipes/UserRecipesPage";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const Router = () => {
     {
       path: "/users/:userId",
       element: <AdminGuard children={<UserDetailsPage />} />,
+    },
+    {
+      path: "/recipes/user/:userId",
+      element: <AdminGuard children={<UserRecipesPage />} />,
     },
     {
       path: "/ingredients",

@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { BaseResponse } from "../../interfaces/Response";
 import { User } from "../../interfaces/User";
+import { Recipe } from "../../interfaces/Recipe";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -45,6 +46,17 @@ export const usersApi = createApi({
         return response.data;
       },
     }),
+    getUserRecipes: builder.query<Recipe[], string>({
+      query: (id: string) => {
+        const url = `recipes/user/${id}`;
+        return url;
+      },
+
+      transformResponse: (response: BaseResponse<Recipe[]>): Recipe[] => {
+        console.log(response.data);
+        return response.data;
+      },
+    }),
   }),
 });
 
@@ -52,4 +64,5 @@ export const {
   useGetAllUsersQuery,
   useGetUserByEmailQuery,
   useGetUserByIdQuery,
+  useGetUserRecipesQuery,
 } = usersApi;
