@@ -20,7 +20,6 @@ const UserPage = () => {
 
   const users = useSelector(selectFilteredUsers);
 
-  console.log(users);
   useEffect(() => {
     if (data) {
       const filteredData = data.filter((user) => user.id !== 1);

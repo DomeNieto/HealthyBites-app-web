@@ -41,8 +41,8 @@ export const calculateImc = (row: User): string => {
     typeof row.infoUser.weight === "number" &&
     row.infoUser.height > 0
   ) {
-    const heightInMeters = row.infoUser.height / 100;
-    const imc = row.infoUser.weight / (heightInMeters * heightInMeters);
+    const imc =
+      row.infoUser.weight / (row.infoUser.height * row.infoUser.height);
     return imc.toFixed(1);
   }
   return "N/A";

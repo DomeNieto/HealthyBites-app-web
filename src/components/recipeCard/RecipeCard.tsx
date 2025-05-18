@@ -6,6 +6,11 @@ interface RecipeCardProps {
 }
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
+  const totalCalories = recipe.ingredients.reduce(
+    (sum, ingredient) => sum + ingredient.quantityCalories,
+    0
+  );
+
   return (
     <Card
       sx={{
@@ -35,7 +40,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         >
           {recipe.ingredients.map((ingredient) => (
             <ListItem key={ingredient.id} sx={{ fontSize: "13px", p: 0 }}>
-              {ingredient.name} ({ingredient.quantityCalories} cal)
+              {ingredient.quantity} {ingredient.name}
             </ListItem>
           ))}
         </List>
@@ -55,6 +60,17 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           {recipe.preparation}
         </Typography>
       </CardContent>
+      {/* Total de calorías */}
+      <Typography
+        variant="subtitle2"
+        sx={{
+          m: 1,
+          fontSize: "13px",
+          textAlign: "right",
+        }}
+      >
+        N° Calorías: {totalCalories}
+      </Typography>
     </Card>
   );
 };

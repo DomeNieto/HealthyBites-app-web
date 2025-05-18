@@ -11,6 +11,7 @@ export interface IngredientState {
 const initialCurrentIngredientState: Ingredient = {
   id: 0,
   name: "",
+  quantity: 0,
   quantityCalories: 0,
   creationDate: "",
 };
