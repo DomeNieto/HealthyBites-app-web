@@ -45,11 +45,6 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       clearTokenAndRol();
-      state.auth = {
-        token: null,
-        role: null,
-        email: null,
-      };
       state.auth = initialState.auth;
     },
     setCredentials: (state, action: PayloadAction<Auth>) => {

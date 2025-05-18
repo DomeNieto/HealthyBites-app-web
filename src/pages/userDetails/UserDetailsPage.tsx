@@ -3,8 +3,9 @@ import { useGetUserByIdQuery } from "../../store/users/UserApi";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SpinnerIsLoading from "../../components/loading/SpinnerLoading";
-import { calculateImc } from "../user/HeaderColumns";
+
 import BackButton from "../../components/backButton/BackBurtton";
+import { calculateImc } from "../../store/users/UtitilitySelector";
 
 const UserDetailsPage = () => {
   const { userId: _id } = useParams<{ userId: string }>();

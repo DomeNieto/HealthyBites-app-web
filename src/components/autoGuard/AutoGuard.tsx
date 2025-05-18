@@ -34,15 +34,15 @@ const AdminGuard = ({ children }: AdminGuardProps) => {
 const mainGuardLayoutStyle = {
   display: "flex",
   flexDirection: "column",
-  height: "100%",
+  height: "100vh",
   width: "100%",
   overflow: "hidden",
 };
 
 const contentWrapperStyle = {
+  flexGrow: 1,
   display: "flex",
   flexDirection: "column",
-  flexGrow: 1,
   width: "100%",
 };
 
