@@ -2,6 +2,7 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { selectUtilityFilter } from "../utilities/UtitlitySlice";
 import { Ingredient } from "../../interfaces/Ingredient";
+import { AccInterface } from "../../interfaces/Selector";
 
 export interface IngredientState {
   ingredients: Ingredient[];
@@ -74,5 +75,16 @@ export const selectFilteredIngredients = createSelector(
         : true;
       return nameMatch && calroriesMatch;
     });
+  }
+);
+
+export const selectHighestCalorieIngredients = createSelector(
+  [selectIngredientsData],
+  (ingredients) => {
+    return ingredients.reduce((acc: AccInterface, ingredient) => {
+      acc[ingredient.name] =
+        (acc[ingredient.name] || 0) + ingredient.quantityCalories;
+      return acc;
+    }, {});
   }
 );
