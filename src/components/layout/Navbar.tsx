@@ -34,10 +34,10 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={appBarStyle}>
       <Toolbar disableGutters>
-        <img src={logoSrc} alt="Logo Gimnasio" style={logoStyle} />
+        <img src={logoSrc} alt="Logo Hb" style={logoStyle} />
 
         <Button sx={navButtonStyle} onClick={() => handleNavigation("/home")}>
-          Gestor
+          Cuadro de mando
         </Button>
 
         <Button sx={navButtonStyle} onClick={() => handleNavigation("/users")}>

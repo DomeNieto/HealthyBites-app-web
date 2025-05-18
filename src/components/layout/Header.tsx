@@ -7,7 +7,7 @@ const Header = () => {
   const titles: titleProps[] = [
     {
       link: "/home",
-      name: "Gestor KPI",
+      name: "Cuadro de mando",
     },
     {
       link: "/users",
@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h5" component="h2">
         {getTitle()}
       </Typography>
