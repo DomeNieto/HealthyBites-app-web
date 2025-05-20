@@ -16,12 +16,7 @@ export const getImcCategory = (imc: number): string => {
 };
 
 export const calculateImc = (row: User): string => {
-  if (
-    row.infoUser &&
-    typeof row.infoUser.height === "number" &&
-    typeof row.infoUser.weight === "number" &&
-    row.infoUser.height > 0
-  ) {
+  if (row.infoUser && row.infoUser.height > 0) {
     const imc =
       row.infoUser.weight / (row.infoUser.height * row.infoUser.height);
     return imc.toFixed(1);

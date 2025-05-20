@@ -2,19 +2,7 @@ import { useSelector } from "react-redux";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { selectHighestCalorieIngredients } from "../../store/ingredient/IngredientSlice";
 import { Stack, Typography } from "@mui/material";
-
-function generateColorPalette(size: number): string[] {
-  const colors = [];
-
-  for (let i = 0; i < size; i++) {
-    const hue = 280;
-    const saturation = 60;
-    const lightness = 40 + (i * 50) / size;
-    colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
-  }
-
-  return colors;
-}
+import { generateColorPalette } from "./UtilityCharts";
 
 export default function IngredientPieChart() {
   const highestCalorieIngredients = useSelector(

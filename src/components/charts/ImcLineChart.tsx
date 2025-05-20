@@ -3,6 +3,7 @@ import { SparkLineChart } from "@mui/x-charts/SparkLineChart";
 import { Box, Stack, Typography } from "@mui/material";
 import { selectUserCountByImcCategory } from "../../store/users/UserSlice";
 import theme from "../../themes/CustomTheme";
+import { categories } from "./UtilityCharts";
 
 export default function ImcLineChart() {
   const imcCount = useSelector(selectUserCountByImcCategory);
@@ -13,14 +14,6 @@ export default function ImcLineChart() {
     imcCount["Sobrepeso"] || 0,
     imcCount["Obesidad grado 1"] || 0,
     imcCount["Obesidad grado 2"] || 0,
-  ];
-
-  const categories = [
-    "Bajo peso",
-    "Normal",
-    "Sobrepeso",
-    "Obesidad grado 1",
-    "Obesidad grado 2",
   ];
 
   return (

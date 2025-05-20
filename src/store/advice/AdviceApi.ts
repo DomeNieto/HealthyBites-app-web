@@ -10,7 +10,8 @@ export const adviceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}api/v1/`,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.auth.token;
+      const state = getState() as RootState;
+      const token = state.auth.auth.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

@@ -14,6 +14,8 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { FormFieldConfig } from "../../interfaces/ModalForm";
 import { useEffect, useState } from "react";
+import CustomSnackbar from "../snackbar/CustomSnackbar";
+
 interface FormModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -35,8 +37,12 @@ const FormModal = ({
   isLoading = false,
   submitButtonText = "Guardar",
 }: FormModalProps) => {
-  
   const [formData, setFormData] = useState(initialValues);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "info" as "success" | "error" | "info" | "warning",
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -49,6 +55,19 @@ const FormModal = ({
   };
 
   const handleSubmit = () => {
+    const hasEmptyFields = fields.some(
+      (field) =>
+        formData[field.name] === "" || formData[field.name] === undefined
+    );
+
+    if (hasEmptyFields) {
+      setSnackbar({
+        open: true,
+        message: "Tpdos los campos deben estar llenos",
+        severity: "error",
+      });
+      return;
+    }
     onSubmit(formData);
   };
 
@@ -102,6 +121,12 @@ const FormModal = ({
           )}
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
     </Dialog>
   );
 };

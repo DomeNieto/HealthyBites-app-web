@@ -1,5 +1,4 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import { InfoUser, User } from "../../interfaces/User";
 import { RootState } from "../store";
 import { selectUtilityFilter } from "../utilities/UtitlitySlice";

@@ -72,8 +72,6 @@ const AdvicePage = () => {
   const handleModalSubmit = async (
     formData: Record<string, string | number>
   ) => {
-    console.log("formData recibido:", formData);
-
     try {
       const payload = {
         title: formData.title.toString(),
@@ -84,7 +82,7 @@ const AdvicePage = () => {
         await createAdvice(payload).unwrap();
         setSnackbar({
           open: true,
-          message: "ingrediente creado correctamente.",
+          message: "Consejo nutricional creado correctamente.",
           severity: "success",
         });
       } else if (modalMode === "edit" && currentAdvice?.id) {
@@ -94,17 +92,18 @@ const AdvicePage = () => {
         }).unwrap();
         setSnackbar({
           open: true,
-          message: "Ingrediente actualizado correctamente.",
+          message: "Consejo nutricional actualizado correctamente.",
           severity: "success",
         });
       }
       handleCloseModal();
     } catch (error) {
-      console.error("Error guardando ingrediente:", error);
+      console.error("Error guardando consejos:", error);
     }
   };
 
   const handleDelete = async (row: Advice) => {
+    console.log("ROW AL ELIMINAR:", row);
     if (window.confirm(`¿Estás seguro de que quieres eliminar ${row.title}?`)) {
       try {
         await deleteAdvice(row.id.toString()).unwrap();
@@ -114,6 +113,8 @@ const AdvicePage = () => {
           severity: "success",
         });
       } catch (error) {
+        console.log("Eliminando ID:", row.id);
+
         console.error("Error eliminando ingrediente:", error);
         setSnackbar({
           open: true,
@@ -135,17 +136,14 @@ const AdvicePage = () => {
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
-  if (data == undefined) {
-    return;
-  }
 
   const initialFormValues =
     modalMode === "edit" && currentAdvice
       ? {
-          name: currentAdvice.title,
+          title: currentAdvice.title,
           description: currentAdvice.description,
         }
-      : { name: "", description: "" };
+      : { title: "", description: "" };
 
   return (
     <Container>
