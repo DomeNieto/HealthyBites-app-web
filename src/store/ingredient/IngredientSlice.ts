@@ -29,7 +29,6 @@ export const ingredientSlice = createSlice({
     setIngredients(state, action: PayloadAction<Ingredient[]>) {
       state.ingredients = action.payload.map((ingredient) => ({
         ...ingredient,
-        isNew: false,
       }));
     },
     resetIngredients(state) {
@@ -81,10 +80,12 @@ export const selectFilteredIngredients = createSelector(
 export const selectHighestCalorieIngredients = createSelector(
   [selectIngredientsData],
   (ingredients) => {
-    return ingredients.reduce((acc: AccInterface, ingredient) => {
-      acc[ingredient.name] =
-        (acc[ingredient.name] || 0) + ingredient.quantityCalories;
-      return acc;
-    }, {});
+    return ingredients
+      .filter((ingredient) => ingredient.active)
+      .reduce((acc: AccInterface, ingredient) => {
+        acc[ingredient.name] =
+          (acc[ingredient.name] || 0) + ingredient.quantityCalories;
+        return acc;
+      }, {});
   }
 );

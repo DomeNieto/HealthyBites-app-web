@@ -27,7 +27,6 @@ export const adviceSlice = createSlice({
     setAdvices(state, action: PayloadAction<Advice[]>) {
       state.advices = action.payload.map((advice) => ({
         ...advice,
-        isNew: false,
       }));
     },
     resetAdvices(state) {

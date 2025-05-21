@@ -27,17 +27,6 @@ export const adviceApi = createApi({
         return response.data;
       },
     }),
-    getAdviceById: builder.query<Advice, string>({
-      providesTags: ["Advices"],
-      query: (id: string) => {
-        const url = `advices/${id}`;
-        return url;
-      },
-      transformResponse: (response: BaseResponse<Advice>): Advice => {
-        console.log(response.data);
-        return response.data;
-      },
-    }),
     createAdvice: builder.mutation<string, Partial<Advice>>({
       query: (newIngredient) => ({
         url: "advices",

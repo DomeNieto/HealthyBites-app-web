@@ -29,17 +29,6 @@ export const ingredientApi = createApi({
         return response.data;
       },
     }),
-    getIngredientById: builder.query<Ingredient, string>({
-      providesTags: ["Ingredient"],
-      query: (id: string) => {
-        const url = `ingredients/${id}`;
-        return url;
-      },
-      transformResponse: (response: BaseResponse<Ingredient>): Ingredient => {
-        console.log(response.data);
-        return response.data;
-      },
-    }),
     createIngredient: builder.mutation<string, Partial<Ingredient>>({
       query: (newIngredient) => ({
         url: "ingredients",
@@ -65,10 +54,17 @@ export const ingredientApi = createApi({
       },
       invalidatesTags: ["Ingredient"],
     }),
-    deleteIngredient: builder.mutation<string, string>({
+    disableIngredient: builder.mutation<string, string>({
       query: (id: string) => ({
-        url: `ingredients/${id}`,
-        method: "DELETE",
+        url: `ingredients/${id}/disable`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Ingredient"],
+    }),
+    activateIngredient: builder.mutation<string, string>({
+      query: (id: string) => ({
+        url: `ingredients/${id}/reactivate`,
+        method: "PUT",
       }),
       invalidatesTags: ["Ingredient"],
     }),
@@ -77,8 +73,8 @@ export const ingredientApi = createApi({
 
 export const {
   useGetAllIngredientsQuery,
-  useGetIngredientByIdQuery,
   useCreateIngredientMutation,
   useUpdateIngredientMutation,
-  useDeleteIngredientMutation,
+  useDisableIngredientMutation,
+  useActivateIngredientMutation,
 } = ingredientApi;

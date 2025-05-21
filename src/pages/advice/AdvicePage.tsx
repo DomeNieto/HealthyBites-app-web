@@ -170,7 +170,6 @@ const AdvicePage = () => {
         data={advices}
         rowKey="id"
         actions={actions}
-        maxHeight={400}
       />
 
       {isModalOpen && (

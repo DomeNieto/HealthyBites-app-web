@@ -37,7 +37,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     setUsers(state, action: PayloadAction<User[]>) {
-      state.users = action.payload.map((user) => ({ ...user, isNew: false }));
+      state.users = action.payload.map((user) => ({ ...user }));
     },
     resetUsers(state) {
       state.users = [];
