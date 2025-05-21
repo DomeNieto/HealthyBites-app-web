@@ -4,12 +4,16 @@ interface ActionButtonProps {
   handleShowDetails?: () => void;
   handleUpdate?: () => void;
   handleDelete?: () => void;
+  handleDisable?: () => void;
+  handleActivate?: () => void;
 }
 
 const ActionButtons = ({
   handleShowDetails,
   handleDelete,
   handleUpdate,
+  handleDisable,
+  handleActivate,
 }: ActionButtonProps) => {
   const renderButtonShowDetails = () =>
     handleShowDetails && (
@@ -53,11 +57,41 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  const renderButtonDisable = () =>
+    handleDisable && (
+      <Tooltip title="Desabilitar Ingrediente">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleDisable}
+          sx={{ textTransform: "none" }}
+        >
+          Desabilitar
+        </Button>
+      </Tooltip>
+    );
+
+  const renderButtonActivate = () =>
+    handleActivate && (
+      <Tooltip title="Habilitar Ingrediente">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleActivate}
+          sx={{ textTransform: "none" }}
+        >
+          Habilitar
+        </Button>
+      </Tooltip>
+    );
+
   const renderActionsButtons = () => (
     <Stack direction="row" spacing={1}>
       {renderButtonShowDetails()}
       {renderButtonUpdate()}
       {renderButtonDelete()}
+      {renderButtonDisable()}
+      {renderButtonActivate()}
     </Stack>
   );
 

@@ -4,10 +4,5 @@ export interface Ingredient {
   quantity: number;
   quantityCalories: number;
   creationDate: string;
-}
-
-export interface IngredientFormData {
-  name: string;
-  quantityCalories: number;
-  creationDate: string;
+  active?: boolean;
 }

@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FilterNumber from "../../components/filter/filterNumber/FilterNumber";
 import {
+  useActivateIngredientMutation,
   useCreateIngredientMutation,
-  useDeleteIngredientMutation,
+  useDisableIngredientMutation,
   useGetAllIngredientsQuery,
   useUpdateIngredientMutation,
 } from "../../store/ingredient/IngredientApi";
@@ -49,7 +50,8 @@ const IngredientPage = () => {
   const [updateIngredient, { isLoading: isUpdating }] =
     useUpdateIngredientMutation();
 
-  const [deleteIngredient] = useDeleteIngredientMutation();
+  const [disableIngredient] = useDisableIngredientMutation();
+  const [activateIngredient] = useActivateIngredientMutation();
 
   useEffect(() => {
     if (data) {
@@ -112,32 +114,65 @@ const IngredientPage = () => {
     }
   };
 
-  const handleDelete = async (row: Ingredient) => {
-    if (window.confirm(`¿Estás seguro de que quieres eliminar ${row.name}?`)) {
+  const handleDisable = async (row: Ingredient) => {
+    if (
+      window.confirm(`¿Estás seguro de que quieres desactivar ${row.name}?`)
+    ) {
       try {
-        await deleteIngredient(row.id.toString()).unwrap();
+        await disableIngredient(row.id.toString()).unwrap();
         setSnackbar({
           open: true,
-          message: "Ingrediente eliminado correctamente",
+          message: "Ingrediente desactivado correctamente",
           severity: "success",
         });
       } catch (error) {
-        console.error("Error eliminando ingrediente:", error);
+        console.log("Error desactiva", error);
         setSnackbar({
           open: true,
-          message: "Error al eliminar el ingrediente. Inténtalo de nuevo.",
+          message: "Error desactivando el ingrediente. Inténtalo de nuevo.",
           severity: "error",
         });
       }
     }
   };
 
-  const actions = (row: Ingredient) => (
-    <ActionButtons
-      handleDelete={() => handleDelete(row)}
-      handleUpdate={() => handleUpdate(row)}
-    />
-  );
+  const handleActivate = async (row: Ingredient) => {
+    if (window.confirm(`¿Estás seguro de que quieres activar ${row.name}?`)) {
+      try {
+        await activateIngredient(row.id.toString()).unwrap();
+        setSnackbar({
+          open: true,
+          message: "Ingrediente activado correctamente",
+          severity: "success",
+        });
+      } catch (error) {
+        console.log("Error activando", error);
+        setSnackbar({
+          open: true,
+          message: "Error activando el ingrediente. Inténtalo de nuevo.",
+          severity: "error",
+        });
+      }
+    }
+  };
+
+  const actions = (row: Ingredient) => {
+    if (row.active === false) {
+      return (
+        <ActionButtons
+          handleActivate={() => handleActivate(row)}
+          handleUpdate={() => handleUpdate(row)}
+        />
+      );
+    } else {
+      return (
+        <ActionButtons
+          handleDisable={() => handleDisable(row)}
+          handleUpdate={() => handleUpdate(row)}
+        />
+      );
+    }
+  };
 
   if (isLoading) {
     return <SpinnerIsLoading />;
@@ -177,7 +212,7 @@ const IngredientPage = () => {
         data={ingredients}
         rowKey="id"
         actions={actions}
-        maxHeight={400}
+        isRowDisabled={(row) => !row.active}
       />
 
       {isModalOpen && (

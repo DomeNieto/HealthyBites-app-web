@@ -20,7 +20,7 @@ interface GenericStickyTableProps<T> {
   data: T[];
   rowKey: keyof T;
   actions?: (row: T) => ReactNode;
-  maxHeight?: number;
+  isRowDisabled?: (row: T) => boolean;
 }
 
 export default function GenericStickyTable<T>({
@@ -28,7 +28,7 @@ export default function GenericStickyTable<T>({
   data,
   rowKey,
   actions,
-  maxHeight = 440,
+  isRowDisabled,
 }: GenericStickyTableProps<T>) {
   const [page, setPage] = useState(0);
 
@@ -50,7 +50,7 @@ export default function GenericStickyTable<T>({
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: maxHeight }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -78,6 +78,7 @@ export default function GenericStickyTable<T>({
               </TableRow>
             ) : (
               data.slice(page * 5, page * 5 + 5).map((row) => {
+                const disabled = isRowDisabled ? isRowDisabled(row) : false;
                 return (
                   <TableRow
                     hover
@@ -92,7 +93,9 @@ export default function GenericStickyTable<T>({
                             key={`actions-cell-${String(row[rowKey])}`}
                             align="center"
                             sx={{
-                              backgroundColor: "#ECDBF7",
+                              backgroundColor: disabled
+                                ? "rgba(230, 166, 251, 0.2)"
+                                : "secondary.main",
                               border: "0.5px  solid rgba(230, 166, 251, 0.3)",
                               py: 1,
                             }}
@@ -109,7 +112,9 @@ export default function GenericStickyTable<T>({
                           key={`${String(column.id)}-${String(row[rowKey])}`}
                           align="center"
                           sx={{
-                            backgroundColor: "secondary.main",
+                            backgroundColor: disabled
+                              ? "rgba(230, 166, 251, 0.2)"
+                              : "secondary.main",
                             border: "0.5px solid rgba(230, 166, 251, 0.3)",
                             py: 1,
                           }}
