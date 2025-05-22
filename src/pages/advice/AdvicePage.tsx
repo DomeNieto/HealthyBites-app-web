@@ -26,27 +26,37 @@ import { useEffect, useState } from "react";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
+// Advice page
 const AdvicePage = () => {
+  // Fetch all advices from the API
   const { data, isLoading } = useGetAllAdvicesQuery();
 
   const dispatch = useDispatch<AppDispatch>();
+
+  // Get filtered advices from the Redux store
   const advices = useSelector(selectFilteredadvices);
 
+  // Mutations for creating and updating advice entries
   const [createAdvice, { isLoading: isCreating }] = useCreateAdviceMutation();
   const [updateAdvice, { isLoading: isUpdating }] = useUpdateAdviceMutation();
 
+  // Modal state: open/close and mode (create or edit)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+  // Snackbar state for showing user messages
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "info" as "success" | "error" | "info" | "warning",
   });
 
+  // Get the currently selected advice from Redux
   const { currentAdvice } = useSelector((state: RootState) => state.advices);
 
   const [deleteAdvice] = useDeleteAdviceMutation();
 
+  // Populate the Redux store with advice data once fetched
   useEffect(() => {
     if (data) {
       dispatch(setAdvices(data));
@@ -54,23 +64,27 @@ const AdvicePage = () => {
     }
   }, [data, dispatch]);
 
+  // Open the modal in create mode
   const handleOpenCreateModal = () => {
     setModalMode("create");
     dispatch(resetCurrentAdvice());
     setIsModalOpen(true);
   };
 
+  // Set modal to edit mode with selected advice
   const handleUpdate = (advice: Advice) => {
     setModalMode("edit");
     dispatch(setCurrentAdvice(advice));
     setIsModalOpen(true);
   };
 
+  // Close the modal and reset current advice
   const handleCloseModal = () => {
     setIsModalOpen(false);
     dispatch(resetCurrentAdvice());
   };
 
+  // Handle form submission for both create and update
   const handleModalSubmit = async (
     formData: Record<string, string | number>
   ) => {
@@ -104,8 +118,8 @@ const AdvicePage = () => {
     }
   };
 
+  // Handle deleting an advice after user confirmation
   const handleDelete = async (row: Advice) => {
-    console.log("ROW AL ELIMINAR:", row);
     if (window.confirm(`¿Estás seguro de que quieres eliminar ${row.title}?`)) {
       try {
         await deleteAdvice(row.id.toString()).unwrap();
@@ -115,8 +129,6 @@ const AdvicePage = () => {
           severity: "success",
         });
       } catch (error) {
-        console.log("Eliminando ID:", row.id);
-
         console.error("Error eliminando ingrediente:", error);
         setSnackbar({
           open: true,
@@ -128,6 +140,7 @@ const AdvicePage = () => {
     }
   };
 
+  // Render update and delete buttons for each row
   const actions = (row: Advice) => (
     <ActionButtons
       handleDelete={() => handleDelete(row)}
@@ -135,10 +148,12 @@ const AdvicePage = () => {
     />
   );
 
+  // Show loading spinner while fetching data
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
 
+  // Set initial form values based on modal mode
   const initialFormValues =
     modalMode === "edit" && currentAdvice
       ? {
@@ -149,6 +164,7 @@ const AdvicePage = () => {
 
   return (
     <Container>
+      {/* Search and create button */}
       <Grid container spacing={2} alignItems="flex-end" sx={{ mb: 5 }}>
         <Grid size={8}>
           <Stack direction="row" spacing={2}>
@@ -167,6 +183,7 @@ const AdvicePage = () => {
         </Grid>
       </Grid>
 
+      {/* Table showing the list of advices */}
       <GenericStickyTable<Advice>
         columns={dataHeaderAdvice()}
         data={advices}
@@ -174,6 +191,7 @@ const AdvicePage = () => {
         actions={actions}
       />
 
+      {/* Modal for creating or editing advice */}
       {isModalOpen && (
         <FormModal
           isOpen={isModalOpen}

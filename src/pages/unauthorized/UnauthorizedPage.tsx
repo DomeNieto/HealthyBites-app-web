@@ -1,5 +1,6 @@
 import { Container, Theme, Typography } from "@mui/material";
 
+// UnauthorizedPage page
 const UnauthorizedPage = () => {
   return (
     <Container maxWidth={false} disableGutters sx={notFoundPageContainerStyle}>

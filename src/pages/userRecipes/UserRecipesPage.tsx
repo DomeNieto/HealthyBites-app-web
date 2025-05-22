@@ -6,19 +6,23 @@ import { useGetUserRecipesQuery } from "../../store/users/UserApi";
 import RecipeCard from "../../components/recipeCard/RecipeCard";
 import { Recipe } from "../../interfaces/Recipe";
 
+// UserRecipesPage page
 const UserRecipesPage = () => {
+  // Extract userId from URL parameters
   const { userId: _id } = useParams<{ userId: string }>();
 
+  // Fetch recipes for the given user ID, skip if no ID
   const { data: recipes, isLoading } = useGetUserRecipesQuery(_id!, {
     skip: !_id,
   });
 
+  // Show loading spinner while fetching recipes
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
 
+  // If no recipes found, show message and back button
   if (!recipes) {
-    // USAR HANDEL
     return (
       <Box sx={{ padding: "20px", textAlign: "center", mt: 4 }}>
         <Typography variant="h6">Usuario no encontrado.</Typography>

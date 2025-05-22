@@ -1,6 +1,7 @@
 import { FormFieldConfig } from "../../interfaces/ModalForm";
 import { formatDate } from "../../store/users/UtitilitySelector";
 
+// Returns column configuration for the ingredients table
 export const dataHeaderIngredients = () => {
   return [
     {
@@ -22,6 +23,7 @@ export const dataHeaderIngredients = () => {
   ];
 };
 
+// Configuration for the fields used in the ingredient creation/edit form
 export const ingredientFieldsConfig: FormFieldConfig[] = [
   {
     name: "name",

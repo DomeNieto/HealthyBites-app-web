@@ -10,6 +10,7 @@ import IngredientPage from "../ingredient/IngredientPage";
 import AdvicePage from "../advice/AdvicePage";
 import UserRecipesPage from "../userRecipes/UserRecipesPage";
 
+// This component sets up the main route structure for the application using react-router-dom.
 const Router = () => {
   const router = createBrowserRouter([
     {

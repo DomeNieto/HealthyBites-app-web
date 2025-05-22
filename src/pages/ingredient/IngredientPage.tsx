@@ -27,6 +27,7 @@ import AddButton from "../../components/acctionButtons/AddButton";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
+// Ingredient page
 const IngredientPage = () => {
   const { data, isLoading } = useGetAllIngredientsQuery();
 
@@ -34,6 +35,7 @@ const IngredientPage = () => {
 
   const ingredients = useSelector(selectFilteredIngredients);
 
+  // Get the currently selected ingredient from Redux
   const { currentIngredient } = useSelector(
     (state: RootState) => state.ingredients
   );
@@ -46,6 +48,7 @@ const IngredientPage = () => {
     severity: "info" as "success" | "error" | "info" | "warning",
   });
 
+  // API mutations
   const [createIngredient, { isLoading: isCreating }] =
     useCreateIngredientMutation();
   const [updateIngredient, { isLoading: isUpdating }] =
@@ -54,6 +57,7 @@ const IngredientPage = () => {
   const [disableIngredient] = useDisableIngredientMutation();
   const [activateIngredient] = useActivateIngredientMutation();
 
+  // Store fetched ingredients in Redux
   useEffect(() => {
     if (data) {
       dispatch(setIngredients(data));
@@ -61,23 +65,27 @@ const IngredientPage = () => {
     }
   }, [data, dispatch]);
 
+  // Open modal in create mode
   const handleOpenCreateModal = () => {
     setModalMode("create");
     dispatch(resetCurrentIngredient());
     setIsModalOpen(true);
   };
 
+  // Open modal in edit mode with selected ingredient
   const handleUpdate = (ingredient: Ingredient) => {
     setModalMode("edit");
     dispatch(setCurrentIngredient(ingredient));
     setIsModalOpen(true);
   };
 
+  // Close modal and reset current ingredient state
   const handleCloseModal = () => {
     setIsModalOpen(false);
     dispatch(resetCurrentIngredient());
   };
 
+  // Handle form submission for create/edit actions
   const handleModalSubmit = async (
     formData: Record<string, string | number>
   ) => {
@@ -116,6 +124,7 @@ const IngredientPage = () => {
     }
   };
 
+  // Disable an ingredient
   const handleDisable = async (row: Ingredient) => {
     if (
       window.confirm(`¿Estás seguro de que quieres desactivar ${row.name}?`)
@@ -138,6 +147,7 @@ const IngredientPage = () => {
     }
   };
 
+  // Reactivate a previously disabled ingredient
   const handleActivate = async (row: Ingredient) => {
     if (window.confirm(`¿Estás seguro de que quieres activar ${row.name}?`)) {
       try {
@@ -158,6 +168,7 @@ const IngredientPage = () => {
     }
   };
 
+  // Render action buttons depending on whether the ingredient is active or not
   const actions = (row: Ingredient) => {
     if (row.active === false) {
       return (
@@ -176,10 +187,12 @@ const IngredientPage = () => {
     }
   };
 
+  // Show loading spinner if ingredients are still being fetched
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
 
+  // Initial form values depending on the modal mode
   const initialFormValues =
     modalMode === "edit" && currentIngredient
       ? {
@@ -190,6 +203,7 @@ const IngredientPage = () => {
 
   return (
     <Container>
+      {/* Filters and add button */}
       <Grid container spacing={2} alignItems="flex-end" sx={{ mb: 5 }}>
         <Grid size={8}>
           <Stack direction="row" spacing={2}>
@@ -209,6 +223,7 @@ const IngredientPage = () => {
         </Grid>
       </Grid>
 
+      {/* Ingredients table */}
       <GenericStickyTable<Ingredient>
         columns={dataHeaderIngredients()}
         data={ingredients}
@@ -217,6 +232,7 @@ const IngredientPage = () => {
         isRowDisabled={(row) => !row.active}
       />
 
+      {/* Modal form for creating/editing ingredients */}
       {isModalOpen && (
         <FormModal
           isOpen={isModalOpen}
@@ -232,6 +248,8 @@ const IngredientPage = () => {
           isLoading={isCreating || isUpdating}
         />
       )}
+
+      {/* Snackbar for feedback messages */}
       <CustomSnackbar
         open={snackbar.open}
         onClose={() => setSnackbar({ ...snackbar, open: false })}

@@ -7,26 +7,31 @@ import SpinnerIsLoading from "../../components/loading/SpinnerLoading";
 import BackButton from "../../components/backButton/BackBurtton";
 import { calculateImc } from "../../store/users/UtitilitySelector";
 
+// UserDetails page
 const UserDetailsPage = () => {
+  // Extract userId from URL parameters
   const { userId: _id } = useParams<{ userId: string }>();
   console.log("_id", _id);
 
   const navigate = useNavigate();
 
+  // Fetch user data by ID, skip query if no ID
   const { data: user, isLoading } = useGetUserByIdQuery(_id!, {
     skip: !_id,
   });
 
+  // Navigate to the recipes page for the user
   const handleViewRecipes = () => {
     navigate(`/recipes/user/${_id}`);
   };
 
+  // Show loading spinner while fetching user data
   if (isLoading) {
     return <SpinnerIsLoading />;
   }
 
+  // If user not found, show message and back button
   if (!user) {
-    // USAR HANDEL
     return (
       <Box sx={{ padding: "20px", textAlign: "center", mt: 4 }}>
         <Typography variant="h6">Usuario no encontrado.</Typography>

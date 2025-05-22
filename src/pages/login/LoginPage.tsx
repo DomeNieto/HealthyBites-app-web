@@ -2,6 +2,7 @@ import { Box, Card, Theme } from "@mui/material";
 import LoginForm from "../../components/login-form/LoginForm";
 import Footer from "../../components/layout/Footer";
 
+// Login page
 const LoginPage = () => {
   return (
     <Box sx={outerWrapper}>
@@ -22,9 +23,11 @@ const LoginPage = () => {
               style={{ width: "25%", maxHeight: "25%" }}
             />
           </Box>
+          {/* Login Form */}
           <LoginForm />
         </Card>
 
+        {/* Footer codex */}
         <Box sx={{ marginTop: 4 }}>
           <Footer />
         </Box>

@@ -1,6 +1,7 @@
 import { User } from "../../interfaces/User";
 import { calculateImc, formatDate } from "../../store/users/UtitilitySelector";
 
+// Returns column configuration for the users table
 export const dataHeaderUsers = () => {
   return [
     {

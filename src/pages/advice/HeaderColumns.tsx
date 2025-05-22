@@ -1,6 +1,7 @@
 import { FormFieldConfig } from "../../interfaces/ModalForm";
 import { formatDate } from "../../store/users/UtitilitySelector";
 
+// Returns column configuration for the advice table
 export const dataHeaderAdvice = () => {
   return [
     {
@@ -22,6 +23,7 @@ export const dataHeaderAdvice = () => {
   ];
 };
 
+// Configuration for the fields used in the advice creation/edit form
 export const adviceFieldsConfig: FormFieldConfig[] = [
   {
     name: "title",
