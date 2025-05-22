@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material";
 import "@mui/material/Button";
 import "@mui/material/styles";
 
+// MUI Styles Module Extensions
 declare module "@mui/material/styles" {
   interface Palette {
     tertiary: Palette["primary"];
@@ -17,12 +18,14 @@ declare module "@mui/material/Button" {
   }
 }
 
+// Custom palette with primary, secondary and tertiary colors
 const customPalette = {
   primary: "#723694",
   secondary: "#ECDBF7",
   tertiary: "#ffab00",
 };
 
+// Base theme with typography and contrast settings
 let theme = createTheme({
   palette: {
     contrastThreshold: 3.47,
@@ -32,6 +35,7 @@ let theme = createTheme({
   },
 });
 
+// Previous theme with our custom palette
 theme = createTheme(theme, {
   palette: {
     primary: theme.palette.augmentColor({

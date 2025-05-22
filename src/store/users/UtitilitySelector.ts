@@ -1,5 +1,10 @@
 import { User } from "../../interfaces/User";
 
+/**
+ * Returns the BMI category based on the numerical value provided.
+ * @param imc - Body Mass Index (BMI)
+ * @returns Category as string
+ */
 export const getImcCategory = (imc: number): string => {
   switch (true) {
     case imc < 18.5:
@@ -15,6 +20,11 @@ export const getImcCategory = (imc: number): string => {
   }
 };
 
+/**
+ * Calculates a user's BMI from their weight and height.
+ * @param row - Object of type "User" that contains the user information
+ * @returns BMI as a formatted string (1 decimal), or "N/A" if it cannot be calculated
+ */
 export const calculateImc = (row: User): string => {
   if (row.infoUser && row.infoUser.height > 0) {
     const imc =
@@ -24,6 +34,11 @@ export const calculateImc = (row: User): string => {
   return "N/A";
 };
 
+/**
+ * Formats a date in short format: dd/mm/yy.
+ * @param value - Date in any format valid for "Date"
+ * @returns Date formatted as string or "Invalid Date" if it cannot be interpreted
+ */
 export const formatDate = (value: unknown): string => {
   try {
     const dateValue = String(value);
@@ -37,11 +52,16 @@ export const formatDate = (value: unknown): string => {
     const year = String(date.getFullYear()).slice(-2);
     return `${day}/${month}/${year}`;
   } catch (e) {
-    console.error("Error formatting date:", value, e);
+    console.error("Error date:", value, e);
     return String(value);
   }
 };
 
+/**
+ * Classifies an age number in a certain range.
+ * @param age - Numeric age
+ * @returns Age range as string
+ */
 export const getAgeRange = (age: number): string => {
   switch (true) {
     case age <= 18:

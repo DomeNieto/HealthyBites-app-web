@@ -6,7 +6,10 @@ import { BaseResponse } from "../../interfaces/Response";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const adviceApi = createApi({
+  // Name of the reducer in the store
   reducerPath: "adviceApi",
+
+  // API base configuration
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}api/v1/`,
     prepareHeaders: (headers, { getState }) => {
@@ -18,8 +21,13 @@ export const adviceApi = createApi({
       return headers;
     },
   }),
+
+  // Tag type for cache invalidation
   tagTypes: ["Advices"],
+
+  // Endpoint definitions
   endpoints: (builder) => ({
+    // Fetch all advices
     getAllAdvices: builder.query<Advice[], void>({
       query: () => "advices",
       providesTags: ["Advices"],
@@ -27,20 +35,24 @@ export const adviceApi = createApi({
         return response.data;
       },
     }),
+
+    // Create a new advice
     createAdvice: builder.mutation<string, Partial<Advice>>({
-      query: (newIngredient) => ({
+      query: (newAdvice) => ({
         url: "advices",
         method: "POST",
-        body: newIngredient,
+        body: newAdvice,
       }),
       transformResponse: (response: BaseResponse<Advice>): string => {
         return response.message;
       },
       invalidatesTags: ["Advices"],
     }),
+
+    // Update an existing advice by id
     updateAdvice: builder.mutation<string, Partial<Advice>>({
-      query: (ingredient: Partial<Advice>) => {
-        const { id, ...body } = ingredient;
+      query: (advice: Partial<Advice>) => {
+        const { id, ...body } = advice;
         return {
           url: `advices/${id}`,
           method: "PUT",
@@ -52,6 +64,8 @@ export const adviceApi = createApi({
       },
       invalidatesTags: ["Advices"],
     }),
+
+    // Delete an advice by id
     deleteAdvice: builder.mutation<string, string>({
       query: (id: string) => ({
         url: `advices/${id}`,
@@ -62,6 +76,7 @@ export const adviceApi = createApi({
   }),
 });
 
+// Export hooks
 export const {
   useGetAllAdvicesQuery,
   useCreateAdviceMutation,

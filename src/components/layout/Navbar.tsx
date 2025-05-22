@@ -22,8 +22,8 @@ const Navbar = () => {
   const handleLogout = () => {
     const confirmed = window.confirm("¿Estás seguro de que deseas salir?");
     if (confirmed) {
-      dispatch(logout());
       navigate("/");
+      dispatch(logout());
     }
   };
 

@@ -24,6 +24,7 @@ import {
 } from "../../store/advice/AdviceSlice";
 import { useEffect, useState } from "react";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
+import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
 const AdvicePage = () => {
   const { data, isLoading } = useGetAllAdvicesQuery();
@@ -49,6 +50,7 @@ const AdvicePage = () => {
   useEffect(() => {
     if (data) {
       dispatch(setAdvices(data));
+      dispatch(resetUtilityState());
     }
   }, [data, dispatch]);
 

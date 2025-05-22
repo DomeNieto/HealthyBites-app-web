@@ -5,8 +5,12 @@ import { Ingredient } from "../../interfaces/Ingredient";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// API service for ingredients
 export const ingredientApi = createApi({
+  // Name of the reducer in the store
   reducerPath: "ingredientApi",
+
+  // API base configuration
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}api/v1/`,
     prepareHeaders: (headers, { getState }) => {
@@ -19,7 +23,10 @@ export const ingredientApi = createApi({
     },
   }),
   tagTypes: ["Ingredient"],
+
+  // Definition of endpoints
   endpoints: (builder) => ({
+    // Get all ingredients
     getAllIngredients: builder.query<Ingredient[], void>({
       query: () => "ingredients",
       providesTags: ["Ingredient"],
@@ -29,6 +36,8 @@ export const ingredientApi = createApi({
         return response.data;
       },
     }),
+
+    // Create a new ingredient
     createIngredient: builder.mutation<string, Partial<Ingredient>>({
       query: (newIngredient) => ({
         url: "ingredients",
@@ -40,6 +49,8 @@ export const ingredientApi = createApi({
       },
       invalidatesTags: ["Ingredient"],
     }),
+
+    // Update an existing ingredient
     updateIngredient: builder.mutation<string, Partial<Ingredient>>({
       query: (ingredient: Partial<Ingredient>) => {
         const { id, ...body } = ingredient;
@@ -54,6 +65,8 @@ export const ingredientApi = createApi({
       },
       invalidatesTags: ["Ingredient"],
     }),
+
+    // Disable an ingredient
     disableIngredient: builder.mutation<string, string>({
       query: (id: string) => ({
         url: `ingredients/${id}/disable`,
@@ -61,6 +74,8 @@ export const ingredientApi = createApi({
       }),
       invalidatesTags: ["Ingredient"],
     }),
+
+    // Reactivate a disabled ingredient
     activateIngredient: builder.mutation<string, string>({
       query: (id: string) => ({
         url: `ingredients/${id}/reactivate`,
@@ -71,6 +86,7 @@ export const ingredientApi = createApi({
   }),
 });
 
+// Hooks
 export const {
   useGetAllIngredientsQuery,
   useCreateIngredientMutation,

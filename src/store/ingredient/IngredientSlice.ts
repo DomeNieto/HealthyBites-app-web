@@ -4,11 +4,15 @@ import { selectUtilityFilter } from "../utilities/UtitlitySlice";
 import { Ingredient } from "../../interfaces/Ingredient";
 import { AccInterface } from "../../interfaces/Selector";
 
+// Ingredient slice
+
+// Ingredient state structure
 export interface IngredientState {
   ingredients: Ingredient[];
   currentIngredient: Ingredient;
 }
 
+// Initial state of the crrent ingredient
 const initialCurrentIngredientState: Ingredient = {
   id: 0,
   name: "",
@@ -17,26 +21,35 @@ const initialCurrentIngredientState: Ingredient = {
   creationDate: "",
 };
 
+// Initial state of the active ingredient
 const initialState: IngredientState = {
   ingredients: [],
   currentIngredient: initialCurrentIngredientState,
 };
 
+// Redux slice to manage ingredients
 export const ingredientSlice = createSlice({
   name: "ingredients",
   initialState,
   reducers: {
+    // Save the complete list of ingredients
     setIngredients(state, action: PayloadAction<Ingredient[]>) {
       state.ingredients = action.payload.map((ingredient) => ({
         ...ingredient,
       }));
     },
+
+    // Clean all the ingredients
     resetIngredients(state) {
       state.ingredients = [];
     },
+
+    // Sets a current ingredient
     setCurrentIngredient(state, action: PayloadAction<Ingredient>) {
       state.currentIngredient = { ...action.payload };
     },
+
+    // Reset the current ingredient to the initial state
     resetCurrentIngredient(state) {
       state.currentIngredient = initialCurrentIngredientState;
     },
@@ -52,11 +65,15 @@ export const {
 
 export default ingredientSlice.reducer;
 
+// Selector to get all ingredients from global state
 export const selectIngredientsData = (state: RootState) =>
   state.ingredients.ingredients;
+
+// Selector to get the currently selected ingredient
 export const selectCurrentIngredientsData = (state: RootState) =>
   state.ingredients.currentIngredient;
 
+// Selector for Filtering Ingredients
 export const selectFilteredIngredients = createSelector(
   [selectIngredientsData, selectUtilityFilter],
   (ingredients, filter) => {
@@ -69,14 +86,15 @@ export const selectFilteredIngredients = createSelector(
         ? (ingredient.name?.toLowerCase() || "").includes(text)
         : true;
 
-      const calroriesMatch = number
+      const caloriesMatch = number
         ? ingredient.quantityCalories?.toString().includes(number.toString())
         : true;
-      return nameMatch && calroriesMatch;
+      return nameMatch && caloriesMatch;
     });
   }
 );
 
+// Selector to Calculate Ingredients with More Calories
 export const selectHighestCalorieIngredients = createSelector(
   [selectIngredientsData],
   (ingredients) => {

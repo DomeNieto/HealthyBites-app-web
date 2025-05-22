@@ -25,6 +25,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import FormModal from "../../components/modal/FormModal";
 import AddButton from "../../components/acctionButtons/AddButton";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
+import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
 const IngredientPage = () => {
   const { data, isLoading } = useGetAllIngredientsQuery();
@@ -56,6 +57,7 @@ const IngredientPage = () => {
   useEffect(() => {
     if (data) {
       dispatch(setIngredients(data));
+      dispatch(resetUtilityState());
     }
   }, [data, dispatch]);
 

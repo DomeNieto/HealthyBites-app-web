@@ -5,11 +5,15 @@ import { selectUtilityFilter } from "../utilities/UtitlitySlice";
 import { calculateImc, getAgeRange, getImcCategory } from "./UtitilitySelector";
 import { AccInterface, SexCount } from "../../interfaces/Selector";
 
+// User slice
+
+// Interface User Slice base
 export interface UserState {
   users: User[];
   currentUser: User;
 }
 
+// Initial state of infoUser
 const initialCurrentInfoUserState: InfoUser = {
   id: 0,
   height: 0,
@@ -19,6 +23,7 @@ const initialCurrentInfoUserState: InfoUser = {
   activityLevel: "",
 };
 
+// Initial state of a user
 const initialCurrentUserState: User = {
   id: 0,
   name: "",
@@ -27,40 +32,59 @@ const initialCurrentUserState: User = {
   infoUser: initialCurrentInfoUserState,
 };
 
+// Initial state of the slice
 const initialState: UserState = {
   users: [],
   currentUser: initialCurrentUserState,
 };
 
+// Redux slice for users
 export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    // Load a new list of users
     setUsers(state, action: PayloadAction<User[]>) {
       state.users = action.payload.map((user) => ({ ...user }));
     },
+    // Clear the user list
     resetUsers(state) {
       state.users = [];
     },
+    // Set the current user
     setCurrentUser(state, action: PayloadAction<User>) {
       state.currentUser = { ...action.payload };
     },
+    // Reset the current user to the initial value
     resetCurrentUser(state) {
       state.currentUser = initialCurrentUserState;
     },
   },
 });
 
+// Action export
 export const { setUsers, resetUsers, setCurrentUser, resetCurrentUser } =
   usersSlice.actions;
 
+// Export the reducer for the store
 export default usersSlice.reducer;
 
+// ------------------------
+// Simple selectors
+// ------------------------
+
+// Returns the list of state users
 export const selectUsersData = (state: RootState) => state.users.users;
+
+// Returns the currently selected user
 export const selectCurrentUserData = (state: RootState) =>
   state.users.currentUser;
 
-// Selectors
+// ------------------------
+// Derived selectors
+// ------------------------
+
+// Returns the list of users filtered by text, date and BMI number
 export const selectFilteredUsers = createSelector(
   [selectUsersData, selectUtilityFilter],
   (users, filter) => {
@@ -88,6 +112,7 @@ export const selectFilteredUsers = createSelector(
   }
 );
 
+// Counts how many users there are by age range
 export const selectUserCountByAgeRange = createSelector(
   [selectUsersData],
   (users) => {
@@ -112,6 +137,7 @@ export const selectUserCountByAgeRange = createSelector(
   }
 );
 
+// Counts users by gender
 export const selectUserCountBySex = createSelector(
   [selectUsersData],
   (users) => {
@@ -126,6 +152,7 @@ export const selectUserCountBySex = createSelector(
   }
 );
 
+// User count by BMI category
 export const selectUserCountByImcCategory = createSelector(
   [selectUsersData],
   (users) => {
@@ -148,6 +175,7 @@ export const selectUserCountByImcCategory = createSelector(
   }
 );
 
+// Count user records per month in the current year
 export const selectUserRegistrationByMonth = createSelector(
   [selectUsersData],
   (users) => {

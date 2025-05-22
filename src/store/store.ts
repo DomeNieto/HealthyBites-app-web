@@ -9,6 +9,7 @@ import adviceReducer from "./advice/AdviceSlice";
 import { ingredientApi } from "./ingredient/IngredientApi";
 import { adviceApi } from "./advice/AdviceApi";
 
+// Reducers Definition
 const reducer = {
   auth: authReducer,
   users: usersReducer,
@@ -21,6 +22,7 @@ const reducer = {
   [adviceApi.reducerPath]: adviceApi.reducer,
 };
 
+// Redux store configuration with defined reducers
 export const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>

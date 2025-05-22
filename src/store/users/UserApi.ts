@@ -6,8 +6,12 @@ import { Recipe } from "../../interfaces/Recipe";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// API service for users
 export const usersApi = createApi({
+  // Name of the reducer in the store
   reducerPath: "usersApi",
+
+  // API base configuration
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}api/v1/`,
     prepareHeaders: (headers, { getState }) => {
@@ -19,6 +23,8 @@ export const usersApi = createApi({
       return headers;
     },
   }),
+
+  // Definition of endpoints
   endpoints: (builder) => ({
     getAllUsers: builder.query<User[], void>({
       query: () => "users",
@@ -26,6 +32,8 @@ export const usersApi = createApi({
         return response.data;
       },
     }),
+
+    // Get a user by their email
     getUserByEmail: builder.query<User, string>({
       query: (email) => ({
         url: "users/by-email",
@@ -36,6 +44,8 @@ export const usersApi = createApi({
         return response.data;
       },
     }),
+
+    // Get a user by id
     getUserById: builder.query<User, string>({
       query: (id: string) => {
         const url = `users/${id}`;
@@ -47,6 +57,8 @@ export const usersApi = createApi({
         return response.data;
       },
     }),
+
+    // Get recipes from a specific user
     getUserRecipes: builder.query<Recipe[], string>({
       query: (id: string) => {
         const url = `recipes/user/${id}`;
@@ -61,6 +73,7 @@ export const usersApi = createApi({
   }),
 });
 
+// Hooks
 export const {
   useGetAllUsersQuery,
   useGetUserByEmailQuery,
