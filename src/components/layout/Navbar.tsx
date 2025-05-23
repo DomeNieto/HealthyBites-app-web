@@ -6,7 +6,11 @@ import logoSrc from "/src/assets/logoApp.png";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { logout } from "../../store/auth/AuthSlice";
-import { useGetUserByEmailQuery } from "../../store/users/UserApi";
+import { useGetUserByEmailQuery, usersApi } from "../../store/users/UserApi";
+import { adviceApi } from "../../store/advice/AdviceApi";
+import { authApi } from "../../store/auth/AuthApi";
+import { ingredientApi } from "../../store/ingredient/IngredientApi";
+import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
 // AppBar
 const Navbar = () => {
@@ -23,8 +27,13 @@ const Navbar = () => {
   const handleLogout = () => {
     const confirmed = window.confirm("¿Estás seguro de que deseas salir?");
     if (confirmed) {
-      navigate("/", { replace: true });
+      dispatch(usersApi.util.resetApiState());
+      dispatch(adviceApi.util.resetApiState());
+      dispatch(ingredientApi.util.resetApiState());
+      dispatch(authApi.util.resetApiState());
+      dispatch(resetUtilityState());
       dispatch(logout());
+      navigate("/", { replace: true });
     }
   };
 
