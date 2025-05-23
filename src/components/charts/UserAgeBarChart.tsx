@@ -1,12 +1,13 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useSelector } from "react-redux";
 import { selectUserCountByAgeRange } from "../../store/users/UserSlice";
-import theme from "../../themes/CustomTheme";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 
+// Bar chart representing the count of users in different age ranges.
 export default function UserAgeRangeBarChart() {
-  const ageRangeData = useSelector(selectUserCountByAgeRange);
+  const theme = useTheme();
 
+  const ageRangeData = useSelector(selectUserCountByAgeRange);
   const labels = Object.keys(ageRangeData);
   const values = Object.values(ageRangeData);
 

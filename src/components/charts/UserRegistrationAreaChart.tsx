@@ -1,10 +1,11 @@
 import { LineChart } from "@mui/x-charts/LineChart";
 import { useSelector } from "react-redux";
 import { selectUserRegistrationByMonth } from "../../store/users/UserSlice";
-import theme from "../../themes/CustomTheme";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 
+// Displays an area chart of user registrations by month for the year of the first data entry.
 export default function UserRegistrationAreaChart() {
+  const theme = useTheme();
   const registrationData = useSelector(selectUserRegistrationByMonth);
 
   const sortedEntries = Object.entries(registrationData).sort(([a], [b]) =>

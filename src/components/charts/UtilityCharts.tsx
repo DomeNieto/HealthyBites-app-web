@@ -1,3 +1,8 @@
+/**
+ * Generates an array of HSL color strings forming a palette with varying lightness.
+ * @param size - Number of colors to generate.
+ * @returns Array of HSL color strings.
+ */
 export const generateColorPalette = (size: number): string[] => {
   const colors = [];
 
@@ -11,6 +16,7 @@ export const generateColorPalette = (size: number): string[] => {
   return colors;
 };
 
+// Categories used for BMI classification.
 export const categories = [
   "Bajo peso",
   "Normal",

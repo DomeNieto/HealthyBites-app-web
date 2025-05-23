@@ -11,6 +11,14 @@ interface AdminGuardProps {
 
 const REQUIRED_ROLE = "ROLE_ADMIN";
 
+/**
+ * AdminGuard component restricts access to its children based on user authentication and role.
+ * - If user is not authenticated, redirects to login page ("/").
+ * - If user is authenticated but not an admin, redirects to unauthorized page ("/unauthorized").
+ * - Otherwise, renders the children wrapped with Navbar and Header.
+ *
+ * @param children - JSX elements to render if access is granted
+ */
 const AdminGuard = ({ children }: AdminGuardProps) => {
   const { auth } = useSelector((state: RootState) => state.auth);
 

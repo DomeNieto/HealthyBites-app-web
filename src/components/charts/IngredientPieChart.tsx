@@ -4,11 +4,18 @@ import { selectHighestCalorieIngredients } from "../../store/ingredient/Ingredie
 import { Stack, Typography } from "@mui/material";
 import { generateColorPalette } from "./UtilityCharts";
 
+/**
+ * IngredientPieChart component displays a pie chart showing
+ * the ingredients with the highest calorie values.
+ * It pulls data from the Redux store and generates a color palette dynamically.
+ */
 export default function IngredientPieChart() {
+  // Fetch highest calorie ingredients from the store
   const highestCalorieIngredients = useSelector(
     selectHighestCalorieIngredients
   );
 
+  // Convert object to array of data suitable for the PieChart
   const chartData = Object.entries(highestCalorieIngredients).map(
     ([ingredient, calories], index) => ({
       id: index,
@@ -17,6 +24,7 @@ export default function IngredientPieChart() {
     })
   );
 
+  // Dynamically generate a color for each ingredient
   const dynamicColors = generateColorPalette(chartData.length);
 
   return (

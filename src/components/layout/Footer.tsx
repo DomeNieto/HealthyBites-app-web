@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 
+// Footer componetn
 const Footer = () => {
   return (
     <Box

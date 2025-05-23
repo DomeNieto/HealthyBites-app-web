@@ -7,11 +7,13 @@ interface FilterNumberProps {
   field?: string;
 }
 
+//  FilterNumber component provides a numeric input field for filtering data by number.
 const FilterNumber = ({ field }: FilterNumberProps) => {
   const dispatch = useDispatch();
 
   const search = useSelector((state: RootState) => state.utility.searchNumber);
 
+  // Handles number input changes and dispatches updated value to Redux
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchNumber(e.target.value as string));
   };

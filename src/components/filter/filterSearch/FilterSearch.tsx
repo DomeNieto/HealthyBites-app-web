@@ -13,11 +13,13 @@ interface FilterSearchProps {
   field?: string;
 }
 
+// FilterSearch component renders a text input with a search icon
 const FilterSearch = ({ field }: FilterSearchProps) => {
   const dispatch = useDispatch();
 
   const search = useSelector((state: RootState) => state.utility.searchText);
 
+  // Dispatch search text changes on input update
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchText(e.target.value as string));
   };

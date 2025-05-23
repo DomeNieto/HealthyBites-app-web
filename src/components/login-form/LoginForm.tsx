@@ -13,6 +13,7 @@ import { useLoginMutation } from "../../store/auth/AuthApi";
 import { saveEmail, saveRol, saveToken } from "../../store/auth/TokenUtility";
 import CustomSnackbar from "../snackbar/CustomSnackbar";
 
+// LoginForm component handles user login with email and password.
 const LoginForm = () => {
   const userInitial = {
     email: "",
@@ -30,6 +31,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  // Update user state on input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
@@ -37,6 +39,7 @@ const LoginForm = () => {
     });
   };
 
+  // Handle form submission and login
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -131,11 +134,11 @@ const LoginForm = () => {
   );
 };
 
+export default LoginForm;
+
 const formContainerStyle = {
   display: "flex",
   flexDirection: "column",
   width: "100%",
   gap: 2,
 };
-
-export default LoginForm;

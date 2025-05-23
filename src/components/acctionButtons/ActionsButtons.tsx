@@ -8,6 +8,11 @@ interface ActionButtonProps {
   handleActivate?: () => void;
 }
 
+/**
+ * ActionButtons component renders a set of buttons based on the
+ * provided handlers. Each button triggers a specific action like
+ * showing details, updating, deleting, disabling, or activating.
+ */
 const ActionButtons = ({
   handleShowDetails,
   handleDelete,
@@ -15,6 +20,7 @@ const ActionButtons = ({
   handleDisable,
   handleActivate,
 }: ActionButtonProps) => {
+  // Render "Show Details" button if handler is provided
   const renderButtonShowDetails = () =>
     handleShowDetails && (
       <Tooltip title="Ver detalles">
@@ -29,6 +35,7 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  // Render "Delete" button if handler is provided
   const renderButtonDelete = () =>
     handleDelete && (
       <Tooltip title="Eliminar">
@@ -43,6 +50,7 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  // Render "Update" button if handler is provided
   const renderButtonUpdate = () =>
     handleUpdate && (
       <Tooltip title="Actualizar">
@@ -57,6 +65,7 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  // Render "Disable" button if handler is provided
   const renderButtonDisable = () =>
     handleDisable && (
       <Tooltip title="Desabilitar Ingrediente">
@@ -71,6 +80,7 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  // Render "Activate" button if handler is provided
   const renderButtonActivate = () =>
     handleActivate && (
       <Tooltip title="Habilitar Ingrediente">
@@ -85,6 +95,7 @@ const ActionButtons = ({
       </Tooltip>
     );
 
+  // Combine all available action buttons in a horizontal stack
   const renderActionsButtons = () => (
     <Stack direction="row" spacing={1}>
       {renderButtonShowDetails()}

@@ -13,11 +13,13 @@ interface FilterDateProps {
   field?: string;
 }
 
+// FilterDate component provides a date picker input for filtering data by date.
 const FilterDate = ({ field }: FilterDateProps) => {
   const dispatch = useDispatch();
 
   const search = useSelector((state: RootState) => state.utility.searchDate);
 
+  // Handles date change and dispatches updated value to Redux
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchDate(e.target.value as string));
   };

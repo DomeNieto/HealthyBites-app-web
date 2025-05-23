@@ -6,6 +6,13 @@ interface AddButtonProps {
   text: string;
 }
 
+/**
+ * AddButton component renders a styled button with an add icon.
+ * It triggers the provided onClick handler when clicked.
+ *
+ * @param onClick - Function to call on button click
+ * @param text - Button label text
+ */
 const AddButton = ({ onClick, text }: AddButtonProps) => {
   return (
     <Button

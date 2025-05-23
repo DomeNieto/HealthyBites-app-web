@@ -27,6 +27,10 @@ interface FormModalProps {
   submitButtonText?: string;
 }
 
+/**
+ * Reusable modal dialog component with dynamic form fields.
+ * Validates for empty fields and displays a snackbar on errors.
+ */
 const FormModal = ({
   isOpen,
   onClose,
@@ -44,16 +48,19 @@ const FormModal = ({
     severity: "info" as "success" | "error" | "info" | "warning",
   });
 
+  // Reset form data when modal opens or initialValues change
   useEffect(() => {
     if (isOpen) {
       setFormData(initialValues);
     }
   }, [initialValues, isOpen]);
 
+  // Update form data on input change
   const handleChange = (name: string, value: string | number) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Validate and submit form
   const handleSubmit = () => {
     const hasEmptyFields = fields.some(
       (field) =>

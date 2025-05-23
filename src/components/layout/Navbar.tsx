@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { logout } from "../../store/auth/AuthSlice";
 import { useGetUserByEmailQuery } from "../../store/users/UserApi";
 
+// AppBar
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();

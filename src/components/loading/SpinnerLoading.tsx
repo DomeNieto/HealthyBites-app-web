@@ -1,4 +1,6 @@
 import { CircularProgress, Container } from "@mui/material";
+
+// SpinnerIsLoading component renders a full-screen centered loading spinner.
 const SpinnerIsLoading = () => {
   return (
     <Container maxWidth={false} disableGutters sx={mainContainerStyle}>

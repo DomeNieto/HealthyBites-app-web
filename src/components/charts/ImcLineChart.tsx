@@ -1,37 +1,42 @@
 import { useSelector } from "react-redux";
 import { SparkLineChart } from "@mui/x-charts/SparkLineChart";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { selectUserCountByImcCategory } from "../../store/users/UserSlice";
-import theme from "../../themes/CustomTheme";
 import { categories } from "./UtilityCharts";
 
+/**
+ * Componente ImcLineChart muestra un gráfico de barras que representa
+ * la cantidad de usuarios en diferentes categorías de IMC (Índice de Masa Corporal).
+ * Utiliza datos del estado global (Redux) y renderiza un SparkLineChart.
+ */
 export default function ImcLineChart() {
+  const theme = useTheme();
+
+  // Get the count of users by BMI category from Redux store
   const imcCount = useSelector(selectUserCountByImcCategory);
 
-  const data = [
-    imcCount["Bajo peso"] || 0,
-    imcCount["Normal"] || 0,
-    imcCount["Sobrepeso"] || 0,
-    imcCount["Obesidad grado 1"] || 0,
-    imcCount["Obesidad grado 2"] || 0,
-  ];
+  // Create an array of data values for the chart, defaulting to 0 if no users in category
+  const data = categories.map((category) => imcCount[category] || 0);
 
   return (
     <Stack direction="column" sx={{ width: "100%", pt: 2 }}>
+      {/* Chart title */}
       <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
-        Categoría IMC de los usuarios
+        Users by BMI Category
       </Typography>
 
+      {/* Chart container */}
       <Box sx={{ flexGrow: 1, mt: 5 }}>
         <SparkLineChart
-          plotType="bar"
-          data={data}
-          height={100}
-          color={theme.palette.secondary.main}
-          showHighlight={true}
-          showTooltip={true}
+          plotType="bar" // Chart type: bar
+          data={data} // Data for the chart
+          height={100} // Chart height
+          color={theme.palette.secondary.main} // Bar color from theme
+          showHighlight={true} // Highlight bars on hover
+          showTooltip={true} // Show tooltip on hover
         />
       </Box>
+
       <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
         {categories.map((category, index) => (
           <Typography
@@ -44,7 +49,9 @@ export default function ImcLineChart() {
           </Typography>
         ))}
       </Stack>
-      <Typography>Imc</Typography>
+
+      {/* Label at the bottom */}
+      <Typography>BMI</Typography>
     </Stack>
   );
 }
