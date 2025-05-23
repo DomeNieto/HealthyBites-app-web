@@ -79,12 +79,12 @@ const UserDetailsPage = () => {
           </Typography>
           <Typography variant="h6" sx={{ mb: 1.5 }}>
             <strong>Sexo:</strong>{" "}
-            {user.infoUser.sex === "F" ? "Femenino" : "Másculino"}
+            {user.infoUser.sex === "Femenino" ? "Femenino" : "Másculino"}
           </Typography>
           <Typography variant="h6" sx={{ mb: 1.5 }}>
             <strong>Altura:</strong>{" "}
             {user.infoUser.height
-              ? `${user.infoUser.height.toString().replace(".", ",")}m`
+              ? `${user.infoUser.height.toString().replace(".", ",")}cm`
               : "N/A"}
           </Typography>
           <Typography variant="h6" sx={{ mb: 1.5 }}>

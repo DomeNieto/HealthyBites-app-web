@@ -1,6 +1,6 @@
 export interface SexCount {
-  M?: number;
-  F?: number;
+  Masculino?: number;
+  Femenino?: number;
 }
 
 export interface AccInterface {

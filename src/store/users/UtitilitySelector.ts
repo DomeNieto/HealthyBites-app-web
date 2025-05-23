@@ -16,7 +16,7 @@ export const getImcCategory = (imc: number): string => {
     case imc < 35:
       return "Obesidad grado 1";
     default:
-      return "Obesidad grado 2 ";
+      return "Obesidad grado 2";
   }
 };
 
@@ -27,8 +27,8 @@ export const getImcCategory = (imc: number): string => {
  */
 export const calculateImc = (row: User): string => {
   if (row.infoUser && row.infoUser.height > 0) {
-    const imc =
-      row.infoUser.weight / (row.infoUser.height * row.infoUser.height);
+    const heightInMeters = row.infoUser.height / 100;
+    const imc = row.infoUser.weight / (heightInMeters * heightInMeters);
     return imc.toFixed(1);
   }
   return "N/A";

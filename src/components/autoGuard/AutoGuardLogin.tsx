@@ -13,11 +13,16 @@ interface AutoGuardProp {
  * @param children - JSX elements to render if user is not authenticated
  */
 const AutoGuardLogin = ({ children }: AutoGuardProp) => {
-  const { auth } = useSelector((state: RootState) => state.auth);
+  const { auth, loading } = useSelector((state: RootState) => state.auth);
+
+  if (loading) {
+    return null;
+  }
+
   return auth.token == null ? (
     <>{children}</>
   ) : (
-    <Navigate to={"/home"} replace /> // home = KPI
+    <Navigate to={"/home"} replace />
   );
 };
 

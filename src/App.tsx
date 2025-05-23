@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 
 import { store } from "./store/store";
 import Router from "./pages/router/Router";
-import { Box, ThemeProvider, useTheme } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
+import theme from "./themes/CustomTheme";
 
 /**
  * Main application component.
@@ -15,8 +16,6 @@ import { Box, ThemeProvider, useTheme } from "@mui/material";
  * with the Router component taking flexible space inside.
  */
 function App() {
-  const theme = useTheme();
-
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>

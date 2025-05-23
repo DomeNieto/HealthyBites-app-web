@@ -30,7 +30,7 @@ export default function IngredientPieChart() {
   return (
     <Stack direction="column" sx={{ width: "100%", pt: 2 }}>
       <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
-        Calorías de los Ingredientes
+        Ingredientes con más calorías
       </Typography>
       <PieChart
         series={[

@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { SparkLineChart } from "@mui/x-charts/SparkLineChart";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { selectUserCountByImcCategory } from "../../store/users/UserSlice";
 import { categories } from "./UtilityCharts";
+import theme from "../../themes/CustomTheme";
 
 /**
  * Componente ImcLineChart muestra un gráfico de barras que representa
@@ -10,8 +11,6 @@ import { categories } from "./UtilityCharts";
  * Utiliza datos del estado global (Redux) y renderiza un SparkLineChart.
  */
 export default function ImcLineChart() {
-  const theme = useTheme();
-
   // Get the count of users by BMI category from Redux store
   const imcCount = useSelector(selectUserCountByImcCategory);
 
@@ -22,7 +21,7 @@ export default function ImcLineChart() {
     <Stack direction="column" sx={{ width: "100%", pt: 2 }}>
       {/* Chart title */}
       <Typography sx={{ fontWeight: "bold", fontSize: 14 }}>
-        Users by BMI Category
+        Usuarios por categoría de IMC
       </Typography>
 
       {/* Chart container */}

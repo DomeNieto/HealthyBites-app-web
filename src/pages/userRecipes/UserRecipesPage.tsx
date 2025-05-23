@@ -31,6 +31,25 @@ const UserRecipesPage = () => {
     );
   }
 
+  if (recipes.length === 0) {
+    return (
+      <>
+        <Box
+          sx={{
+            textAlign: "center",
+            alignContent: "center",
+            m: 4,
+            height: "410px",
+          }}
+        >
+          <Typography variant="h6">
+            Este usuario aún no tiene recetas.
+          </Typography>
+        </Box>
+        <BackButton />
+      </>
+    );
+  }
   return (
     <Box
       sx={{

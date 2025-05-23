@@ -98,12 +98,20 @@ export const selectFilteredIngredients = createSelector(
 export const selectHighestCalorieIngredients = createSelector(
   [selectIngredientsData],
   (ingredients) => {
-    return ingredients
+    const calorieMap = ingredients
       .filter((ingredient) => ingredient.active)
       .reduce((acc: AccInterface, ingredient) => {
         acc[ingredient.name] =
           (acc[ingredient.name] || 0) + ingredient.quantityCalories;
         return acc;
       }, {});
+
+    return Object.entries(calorieMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .reduce((acc, [name, calories]) => {
+        acc[name] = calories;
+        return acc;
+      }, {} as AccInterface);
   }
 );
