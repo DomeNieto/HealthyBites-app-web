@@ -68,14 +68,14 @@ const ActionButtons = ({
   // Render "Disable" button if handler is provided
   const renderButtonDisable = () =>
     handleDisable && (
-      <Tooltip title="Desabilitar Ingrediente">
+      <Tooltip title="Deshabilitar Ingrediente">
         <Button
           variant="contained"
           color="primary"
           onClick={handleDisable}
           sx={{ textTransform: "none" }}
         >
-          Desabilitar
+          Deshabilitar
         </Button>
       </Tooltip>
     );
