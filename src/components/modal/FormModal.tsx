@@ -70,7 +70,7 @@ const FormModal = ({
     if (hasEmptyFields) {
       setSnackbar({
         open: true,
-        message: "Tpdos los campos deben estar llenos",
+        message: "Todos los campos deben estar llenos",
         severity: "error",
       });
       return;
