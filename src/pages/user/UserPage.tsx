@@ -12,6 +12,7 @@ import { selectFilteredUsers, setUsers } from "../../store/users/UserSlice";
 import { useEffect } from "react";
 import FilterDate from "../../components/filter/filterDate/FilterDate";
 import FilterNumber from "../../components/filter/filterNumber/FilterNumber";
+import { resetUtilityState } from "../../store/utilities/UtitlitySlice";
 
 // User page
 const UserPage = () => {
@@ -29,6 +30,7 @@ const UserPage = () => {
       const filteredData = data.filter((user) => user.id !== 1);
       dispatch(setUsers(filteredData));
     }
+    dispatch(resetUtilityState());
   }, [data, dispatch]);
 
   // Navigate to user details page when "View Details" is clicked
